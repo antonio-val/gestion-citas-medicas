@@ -51,7 +51,7 @@ public class PatientsService {
 		repository.save(patient);
 	}
 
-	public void partiallyUpdatePatientByNationalIdNumber(PatientDTO updatedPatient) {
+	public void partiallyUpdatePatientByNationalIdNumber(PatientPartiallyUpdateDTO updatedPatient) {
 		Patient patient = getPatientEntityByNationalIdNumber(updatedPatient.getNationalIdNumber());
 		
 		if(Strings.isNotBlank(updatedPatient.getFirstName()))

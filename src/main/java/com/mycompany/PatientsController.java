@@ -28,8 +28,8 @@ public class PatientsController {
 	}
 	
 	@PostMapping("/search")
-	public PatientDTO getPatientByNationalIdNumber (@RequestBody PatientDTO patient) {
-		return patientsService.getPatientByNationalIdNumber(patient.getNationalIdNumber());
+	public PatientDTO getPatientByNationalIdNumber (@RequestBody PatientSearchRequestDTO search) {
+		return patientsService.getPatientByNationalIdNumber(search.getNationalIdNumber());
 	}
 	
 	@PostMapping("/create")
@@ -38,8 +38,8 @@ public class PatientsController {
 	}
 	
 	@DeleteMapping
-	public void deletePatientByNationalIdNumber(@RequestBody PatientDTO patient) {
-		patientsService.deletePatientByNationalIdNumber(patient.getNationalIdNumber());
+	public void deletePatientByNationalIdNumber(@RequestBody PatientSearchRequestDTO search) {
+		patientsService.deletePatientByNationalIdNumber(search.getNationalIdNumber());
 	}
 
 	@PutMapping
@@ -48,7 +48,7 @@ public class PatientsController {
 	}
 
 	@PatchMapping
-	public void partiallyUpdatePatientByNationalIdNumber(@RequestBody PatientDTO patient) {
+	public void partiallyUpdatePatientByNationalIdNumber(@RequestBody PatientPartiallyUpdateDTO patient) {
 		patientsService.partiallyUpdatePatientByNationalIdNumber(patient);
 	}
 }
