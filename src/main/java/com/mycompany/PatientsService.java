@@ -33,6 +33,9 @@ public class PatientsService {
 	}
 
 	public void createPatient(PatientDTO patientDto) {
+		if(repository.existsByNationalIdNumber(patientDto.getNationalIdNumber()))
+			throw new PatientExistsException(patientDto.getNationalIdNumber());
+		
 		Patient patient = patientMapper.toNewEntity(patientDto);
 		repository.save(patient);
 	}
@@ -41,6 +44,7 @@ public class PatientsService {
 	public void deletePatientByNationalIdNumber(String id) {
 		if(!repository.existsByNationalIdNumber(id))
 			throw new PatientNotFoundException(id);
+		
 		repository.deleteByNationalIdNumber(id);
 	}
 

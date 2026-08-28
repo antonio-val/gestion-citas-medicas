@@ -1,7 +1,10 @@
 package com.mycompany;
 
+import jakarta.validation.constraints.NotBlank;
+
 public class PatientPartiallyUpdateDTO {
 	private String firstName;
+	@NotBlank(message = "El DNI es obligatorio")
 	private String nationalIdNumber;
 
 	public PatientPartiallyUpdateDTO() {
