@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,28 +27,28 @@ public class PatientsController {
 		return patientsService.getAllPatients();
 	}
 	
-	@GetMapping("{id}")
-	public PatientDTO getPatientByNationalIdNumber (@PathVariable String id) {
-		return patientsService.getPatientByNationalIdNumber(id);
+	@PostMapping("/search")
+	public PatientDTO getPatientByNationalIdNumber (@RequestBody PatientDTO patient) {
+		return patientsService.getPatientByNationalIdNumber(patient.getNationalIdNumber());
 	}
 	
-	@PostMapping
+	@PostMapping("/add")
 	public void addPatient(@RequestBody PatientDTO patient) {
 		patientsService.addPatient(patient);
 	}
 	
-	@DeleteMapping("{id}")
-	public void deletePatientByNationalIdNumber(@PathVariable String id) {
-		patientsService.deletePatientByNationalIdNumber(id);
+	@DeleteMapping
+	public void deletePatientByNationalIdNumber(@RequestBody PatientDTO patient) {
+		patientsService.deletePatientByNationalIdNumber(patient.getNationalIdNumber());
 	}
 
-	@PutMapping("{id}")
-	public void updatePatientByNationalIdNumber(@PathVariable String id, @RequestBody PatientDTO patient) {
-		patientsService.updatePatientByNationalIdNumber(id, patient);
+	@PutMapping
+	public void updatePatientByNationalIdNumber(@RequestBody PatientDTO patient) {
+		patientsService.updatePatientByNationalIdNumber(patient);
 	}
 
-	@PatchMapping("{id}")
-	public void partiallyUpdatePatientByNationalIdNumber(@PathVariable String id, @RequestBody PatientDTO patient) {
-		patientsService.partiallyUpdatePatientByNationalIdNumber(id, patient);
+	@PatchMapping
+	public void partiallyUpdatePatientByNationalIdNumber(@RequestBody PatientDTO patient) {
+		patientsService.partiallyUpdatePatientByNationalIdNumber(patient);
 	}
 }

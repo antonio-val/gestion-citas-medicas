@@ -44,15 +44,15 @@ public class PatientsService {
 		repository.deleteByNationalIdNumber(id);
 	}
 
-	public void updatePatientByNationalIdNumber(String id, PatientDTO updatedPatient) {
-		Patient patient = getPatientEntityByNationalIdNumber(id);
+	public void updatePatientByNationalIdNumber(PatientDTO updatedPatient) {
+		Patient patient = getPatientEntityByNationalIdNumber(updatedPatient.getNationalIdNumber());
 		
 		patient.setFirstName(updatedPatient.getFirstName());
 		repository.save(patient);
 	}
 
-	public void partiallyUpdatePatientByNationalIdNumber(String id, PatientDTO updatedPatient) {
-		Patient patient = getPatientEntityByNationalIdNumber(id);
+	public void partiallyUpdatePatientByNationalIdNumber(PatientDTO updatedPatient) {
+		Patient patient = getPatientEntityByNationalIdNumber(updatedPatient.getNationalIdNumber());
 		
 		if(Strings.isNotBlank(updatedPatient.getFirstName()))
 			patient.setFirstName(updatedPatient.getFirstName());
