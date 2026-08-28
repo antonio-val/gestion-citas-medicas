@@ -29,7 +29,7 @@ public class PatientsService {
 	}
 
 	private Patient getPatientEntityByNationalIdNumber(String id) {
-		return repository.findByNationalIdNumber(id).orElseThrow(() -> new IllegalStateException("DNI " + id + " no encontrado"));
+		return repository.findByNationalIdNumber(id).orElseThrow(() -> new PatientNotFoundException(id));
 	}
 
 	public void addPatient(PatientDTO patientDto) {
@@ -40,7 +40,7 @@ public class PatientsService {
 	@Transactional
 	public void deletePatient(String id) {
 		if(!repository.existsByNationalIdNumber(id))
-			throw new IllegalStateException("DNI " + id + " no encontrado");
+			throw new PatientNotFoundException(id);
 		repository.deleteByNationalIdNumber(id);
 	}
 
