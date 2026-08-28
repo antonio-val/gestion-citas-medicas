@@ -1,14 +1,16 @@
-package com.mycompany;
+package com.mycompany.patient.dto;
 
 import jakarta.validation.constraints.NotBlank;
 
-public class PatientPartiallyUpdateDTO {
+public class PatientDTO {
+	@NotBlank(message = "El nombre es obligatorio")
 	private String firstName;
+	@NotBlank(message = "El apellido es obligatorio.")
 	private String lastName;
 	@NotBlank(message = "El DNI es obligatorio")
 	private String nationalIdNumber;
 
-	public PatientPartiallyUpdateDTO() {
+	public PatientDTO() {
 		super();
 	}
 	
@@ -19,7 +21,7 @@ public class PatientPartiallyUpdateDTO {
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
-
+	
 	public String getLastName() {
 		return lastName;
 	}

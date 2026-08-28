@@ -1,4 +1,4 @@
-package com.mycompany;
+package com.mycompany.patient.dto;
 
 import jakarta.validation.constraints.NotBlank;
 

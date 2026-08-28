@@ -1,4 +1,4 @@
-package com.mycompany;
+package com.mycompany.patient.exception;
 
 public class PatientNotFoundException extends RuntimeException{
 	private static final long serialVersionUID = 6889175144724384269L;

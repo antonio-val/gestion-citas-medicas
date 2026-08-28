@@ -1,4 +1,4 @@
-package com.mycompany;
+package com.mycompany.patient.controller;
 
 import java.util.List;
 
@@ -11,6 +11,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.mycompany.patient.dto.PatientDTO;
+import com.mycompany.patient.dto.PatientPartiallyUpdateDTO;
+import com.mycompany.patient.dto.PatientSearchRequestDTO;
+import com.mycompany.patient.service.PatientsService;
 
 @RestController
 @RequestMapping("api/v1/gestion-citas-medicas")

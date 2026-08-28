@@ -1,9 +1,17 @@
-package com.mycompany;
+package com.mycompany.patient.service;
 
 import java.util.List;
 
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.stereotype.Service;
+
+import com.mycompany.patient.dto.PatientDTO;
+import com.mycompany.patient.dto.PatientPartiallyUpdateDTO;
+import com.mycompany.patient.exception.PatientExistsException;
+import com.mycompany.patient.exception.PatientNotFoundException;
+import com.mycompany.patient.mapper.PatientMapper;
+import com.mycompany.patient.model.Patient;
+import com.mycompany.patient.repository.PatientsRepository;
 
 import jakarta.transaction.Transactional;
 
