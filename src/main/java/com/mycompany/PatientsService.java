@@ -5,6 +5,8 @@ import java.util.List;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.stereotype.Service;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class PatientsService {
 	private PatientsRepository repository;
@@ -35,9 +37,11 @@ public class PatientsService {
 		repository.save(patient);
 	}
 
+	@Transactional
 	public void deletePatient(String id) {
-		Patient patient = getPatientEntityByNationalIdNumber(id);
-		repository.delete(patient);
+		if(!repository.existsByNationalIdNumber(id))
+			throw new IllegalStateException("DNI " + id + " no encontrado");
+		repository.deleteByNationalIdNumber(id);
 	}
 
 	public void updatePatient(String id, PatientDTO updatedPatient) {
