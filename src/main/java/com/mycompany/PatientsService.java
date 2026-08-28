@@ -8,45 +8,50 @@ import org.springframework.stereotype.Service;
 @Service
 public class PatientsService {
 	private PatientsRepository repository;
-
-		public PatientsService(PatientsRepository repository) {
+	private PatientMapper patientMapper;
+	
+	public PatientsService(PatientsRepository repository, PatientMapper patientMapper) {
 		super();
 		this.repository = repository;
+		this.patientMapper = patientMapper;
 	}
 
-	public List<Patient> getAllPatients() {
-		return repository.findAll();
+	public List<PatientDTO> getAllPatients() {
+		return repository.findAll().stream().map(p -> patientMapper.toDto(p)).toList();
 	}
 
-	public Patient getPatientByNationalIdNumber(String id) {
+	public PatientDTO getPatientByNationalIdNumber(String id) {
+		Patient patient = getPatientEntityByNationalIdNumber(id);
+		
+		return patientMapper.toDto(patient);
+	}
+
+	private Patient getPatientEntityByNationalIdNumber(String id) {
 		return repository.findByNationalIdNumber(id).orElseThrow(() -> new IllegalStateException("DNI " + id + " no encontrado"));
 	}
 
-	public void addPatient(Patient patient) {
+	public void addPatient(PatientDTO patientDto) {
+		Patient patient = patientMapper.toNewEntity(patientDto);
 		repository.save(patient);
 	}
 
 	public void deletePatient(String id) {
-		Patient patient = getPatientByNationalIdNumber(id);
+		Patient patient = getPatientEntityByNationalIdNumber(id);
 		repository.delete(patient);
 	}
 
-	public void updatePatient(String id, Patient updatedPatient) {
-		Patient patient = getPatientByNationalIdNumber(id);
+	public void updatePatient(String id, PatientDTO updatedPatient) {
+		Patient patient = getPatientEntityByNationalIdNumber(id);
 		
 		patient.setFirstName(updatedPatient.getFirstName());
-		patient.setNationalIdNumber(updatedPatient.getNationalIdNumber());
 		repository.save(patient);
 	}
 
-	public void partiallyUpdatePatient(String id, Patient updatedPatient) {
-		Patient patient = getPatientByNationalIdNumber(id);
+	public void partiallyUpdatePatient(String id, PatientDTO updatedPatient) {
+		Patient patient = getPatientEntityByNationalIdNumber(id);
 		
 		if(Strings.isNotBlank(updatedPatient.getFirstName()))
 			patient.setFirstName(updatedPatient.getFirstName());
-		
-		if(Strings.isNotBlank(updatedPatient.getNationalIdNumber()))
-			patient.setNationalIdNumber(updatedPatient.getNationalIdNumber());
 
 		repository.save(patient);
 	}
