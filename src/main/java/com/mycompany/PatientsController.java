@@ -32,9 +32,9 @@ public class PatientsController {
 		return patientsService.getPatientByNationalIdNumber(patient.getNationalIdNumber());
 	}
 	
-	@PostMapping("/add")
-	public void addPatient(@RequestBody PatientDTO patient) {
-		patientsService.addPatient(patient);
+	@PostMapping("/create")
+	public void createPatient(@RequestBody PatientDTO patient) {
+		patientsService.createPatient(patient);
 	}
 	
 	@DeleteMapping

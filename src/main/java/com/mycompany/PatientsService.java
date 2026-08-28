@@ -32,7 +32,7 @@ public class PatientsService {
 		return repository.findByNationalIdNumber(id).orElseThrow(() -> new PatientNotFoundException(id));
 	}
 
-	public void addPatient(PatientDTO patientDto) {
+	public void createPatient(PatientDTO patientDto) {
 		Patient patient = patientMapper.toNewEntity(patientDto);
 		repository.save(patient);
 	}
