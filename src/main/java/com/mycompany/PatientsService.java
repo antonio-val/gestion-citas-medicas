@@ -61,6 +61,9 @@ public class PatientsService {
 		if(Strings.isNotBlank(updatedPatient.getFirstName()))
 			patient.setFirstName(updatedPatient.getFirstName());
 
+		if(Strings.isNotBlank(updatedPatient.getLastName()))
+			patient.setLastName(updatedPatient.getLastName());
+
 		repository.save(patient);
 	}
 }

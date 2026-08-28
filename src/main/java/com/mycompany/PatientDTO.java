@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotBlank;
 public class PatientDTO {
 	@NotBlank(message = "El nombre es obligatorio")
 	private String firstName;
+	@NotBlank(message = "El apellido es obligatorio.")
+	private String lastName;
 	@NotBlank(message = "El DNI es obligatorio")
 	private String nationalIdNumber;
 
@@ -20,6 +22,14 @@ public class PatientDTO {
 		this.firstName = firstName;
 	}
 	
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
 	public String getNationalIdNumber() {
 		return nationalIdNumber;
 	}

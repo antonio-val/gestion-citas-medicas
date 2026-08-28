@@ -18,6 +18,9 @@ public class Patient {
 	@NotBlank(message = "El nombre es obligatorio.")
 	private String firstName;
 
+	@NotBlank(message = "El apellido es obligatorio.")
+	private String lastName;
+
 	@NotBlank(message = "El DNI es obligatorio.")
 	@Column(unique = true)
 	private String nationalIdNumber;
@@ -26,10 +29,11 @@ public class Patient {
 		super();
 	}
 
-	public Patient(Long id, String firstName, String nationalIdNumber) {
+	public Patient(Long id, String firstName, String lastName, String nationalIdNumber) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
+		this.lastName = lastName;
 		this.nationalIdNumber = nationalIdNumber;
 	}
 
@@ -49,6 +53,14 @@ public class Patient {
 		this.firstName = firstName;
 	}
 
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
 	public String getNationalIdNumber() {
 		return nationalIdNumber;
 	}
@@ -59,7 +71,7 @@ public class Patient {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(firstName, id, nationalIdNumber);
+		return Objects.hash(firstName, id, lastName, nationalIdNumber);
 	}
 
 	@Override
@@ -72,6 +84,6 @@ public class Patient {
 			return false;
 		Patient other = (Patient) obj;
 		return Objects.equals(firstName, other.firstName) && Objects.equals(id, other.id)
-				&& Objects.equals(nationalIdNumber, other.nationalIdNumber);
+				&& Objects.equals(lastName, other.lastName) && Objects.equals(nationalIdNumber, other.nationalIdNumber);
 	}
 }
