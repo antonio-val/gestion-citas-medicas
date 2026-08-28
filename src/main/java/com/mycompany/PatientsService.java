@@ -38,20 +38,20 @@ public class PatientsService {
 	}
 
 	@Transactional
-	public void deletePatient(String id) {
+	public void deletePatientByNationalIdNumber(String id) {
 		if(!repository.existsByNationalIdNumber(id))
 			throw new PatientNotFoundException(id);
 		repository.deleteByNationalIdNumber(id);
 	}
 
-	public void updatePatient(String id, PatientDTO updatedPatient) {
+	public void updatePatientByNationalIdNumber(String id, PatientDTO updatedPatient) {
 		Patient patient = getPatientEntityByNationalIdNumber(id);
 		
 		patient.setFirstName(updatedPatient.getFirstName());
 		repository.save(patient);
 	}
 
-	public void partiallyUpdatePatient(String id, PatientDTO updatedPatient) {
+	public void partiallyUpdatePatientByNationalIdNumber(String id, PatientDTO updatedPatient) {
 		Patient patient = getPatientEntityByNationalIdNumber(id);
 		
 		if(Strings.isNotBlank(updatedPatient.getFirstName()))

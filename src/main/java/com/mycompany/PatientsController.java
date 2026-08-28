@@ -29,8 +29,8 @@ public class PatientsController {
 	}
 	
 	@GetMapping("{id}")
-	public PatientDTO getPatientByNationalIdNumber (@PathVariable String nationalIdNumber) {
-		return patientsService.getPatientByNationalIdNumber(nationalIdNumber);
+	public PatientDTO getPatientByNationalIdNumber (@PathVariable String id) {
+		return patientsService.getPatientByNationalIdNumber(id);
 	}
 	
 	@PostMapping
@@ -39,17 +39,17 @@ public class PatientsController {
 	}
 	
 	@DeleteMapping("{id}")
-	public void deletePatient(@PathVariable String id) {
-		patientsService.deletePatient(id);
+	public void deletePatientByNationalIdNumber(@PathVariable String id) {
+		patientsService.deletePatientByNationalIdNumber(id);
 	}
 
 	@PutMapping("{id}")
-	public void updatePatient(@PathVariable String id, @RequestBody PatientDTO patient) {
-		patientsService.updatePatient(id, patient);
+	public void updatePatientByNationalIdNumber(@PathVariable String id, @RequestBody PatientDTO patient) {
+		patientsService.updatePatientByNationalIdNumber(id, patient);
 	}
 
 	@PatchMapping("{id}")
-	public void partiallyUpdatePatient(@PathVariable String id, @RequestBody PatientDTO patient) {
-		patientsService.partiallyUpdatePatient(id, patient);
+	public void partiallyUpdatePatientByNationalIdNumber(@PathVariable String id, @RequestBody PatientDTO patient) {
+		patientsService.partiallyUpdatePatientByNationalIdNumber(id, patient);
 	}
 }
