@@ -15,45 +15,45 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mycompany.patient.dto.PatientDTO;
 import com.mycompany.patient.dto.PatientPartiallyUpdateDTO;
 import com.mycompany.patient.dto.PatientSearchRequestDTO;
-import com.mycompany.patient.service.PatientsService;
+import com.mycompany.patient.service.PatientService;
 
 @RestController
 @RequestMapping("api/v1/gestion-citas-medicas")
-public class PatientsController {
-	private PatientsService patientsService;
+public class PatientController {
+	private PatientService patientService;
 	
-	public PatientsController(PatientsService patientsService) {
+	public PatientController(PatientService patientService) {
 		super();
-		this.patientsService = patientsService;
+		this.patientService = patientService;
 	}
 
 	@GetMapping
 	public List<PatientDTO> getAllPatients () {
-		return patientsService.getAllPatients();
+		return patientService.getAllPatients();
 	}
 	
 	@PostMapping("/search")
 	public PatientDTO getPatientByNationalIdNumber (@RequestBody PatientSearchRequestDTO search) {
-		return patientsService.getPatientByNationalIdNumber(search.getNationalIdNumber());
+		return patientService.getPatientByNationalIdNumber(search.getNationalIdNumber());
 	}
 	
 	@PostMapping("/create")
 	public void createPatient(@RequestBody PatientDTO patient) {
-		patientsService.createPatient(patient);
+		patientService.createPatient(patient);
 	}
 	
 	@DeleteMapping
 	public void deletePatientByNationalIdNumber(@RequestBody PatientSearchRequestDTO search) {
-		patientsService.deletePatientByNationalIdNumber(search.getNationalIdNumber());
+		patientService.deletePatientByNationalIdNumber(search.getNationalIdNumber());
 	}
 
 	@PutMapping
 	public void updatePatientByNationalIdNumber(@RequestBody PatientDTO patient) {
-		patientsService.updatePatientByNationalIdNumber(patient);
+		patientService.updatePatientByNationalIdNumber(patient);
 	}
 
 	@PatchMapping
 	public void partiallyUpdatePatientByNationalIdNumber(@RequestBody PatientPartiallyUpdateDTO patient) {
-		patientsService.partiallyUpdatePatientByNationalIdNumber(patient);
+		patientService.partiallyUpdatePatientByNationalIdNumber(patient);
 	}
 }

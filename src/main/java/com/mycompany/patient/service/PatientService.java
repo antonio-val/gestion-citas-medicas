@@ -11,16 +11,16 @@ import com.mycompany.patient.exception.PatientExistsException;
 import com.mycompany.patient.exception.PatientNotFoundException;
 import com.mycompany.patient.mapper.PatientMapper;
 import com.mycompany.patient.model.Patient;
-import com.mycompany.patient.repository.PatientsRepository;
+import com.mycompany.patient.repository.PatientRepository;
 
 import jakarta.transaction.Transactional;
 
 @Service
-public class PatientsService {
-	private PatientsRepository repository;
+public class PatientService {
+	private PatientRepository repository;
 	private PatientMapper patientMapper;
 	
-	public PatientsService(PatientsRepository repository, PatientMapper patientMapper) {
+	public PatientService(PatientRepository repository, PatientMapper patientMapper) {
 		super();
 		this.repository = repository;
 		this.patientMapper = patientMapper;
