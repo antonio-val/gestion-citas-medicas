@@ -17,8 +17,8 @@ import jakarta.transaction.Transactional;
 
 @Service
 public class PatientService {
-	private PatientRepository repository;
-	private PatientMapper patientMapper;
+	private final PatientRepository repository;
+	private final PatientMapper patientMapper;
 	
 	public PatientService(PatientRepository repository, PatientMapper patientMapper) {
 		super();

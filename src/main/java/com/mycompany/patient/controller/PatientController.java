@@ -18,9 +18,9 @@ import com.mycompany.patient.dto.PatientSearchRequestDTO;
 import com.mycompany.patient.service.PatientService;
 
 @RestController
-@RequestMapping("api/v1/gestion-citas-medicas")
+@RequestMapping("api/v1/pacientes")
 public class PatientController {
-	private PatientService patientService;
+	private final PatientService patientService;
 	
 	public PatientController(PatientService patientService) {
 		super();
