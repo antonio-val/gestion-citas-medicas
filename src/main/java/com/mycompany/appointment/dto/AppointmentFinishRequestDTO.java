@@ -1,9 +1,9 @@
 package com.mycompany.appointment.dto;
 
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public class AppointmentFinishRequestDTO {
-	@NotBlank(message = "{appointment.error.idMandatory}")
+	@NotNull(message = "{appointment.error.idMandatory}")
 	private Long id;
 	private String finalNotes;
 

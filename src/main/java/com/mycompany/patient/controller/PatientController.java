@@ -17,6 +17,8 @@ import com.mycompany.patient.dto.PatientPartiallyUpdateRequestDTO;
 import com.mycompany.patient.dto.PatientSearchRequestDTO;
 import com.mycompany.patient.service.PatientService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("api/v1/pacientes")
 public class PatientController {
@@ -33,27 +35,27 @@ public class PatientController {
 	}
 	
 	@PostMapping("/search")
-	public PatientDTO getPatientByNationalIdNumber (@RequestBody PatientSearchRequestDTO search) {
+	public PatientDTO getPatientByNationalIdNumber (@Valid @RequestBody PatientSearchRequestDTO search) {
 		return patientService.getPatientByNationalIdNumber(search.getNationalIdNumber());
 	}
 	
 	@PostMapping("/create")
-	public void createPatient(@RequestBody PatientDTO patient) {
+	public void createPatient(@Valid @RequestBody PatientDTO patient) {
 		patientService.createPatient(patient);
 	}
 	
 	@DeleteMapping
-	public void deletePatientByNationalIdNumber(@RequestBody PatientSearchRequestDTO search) {
+	public void deletePatientByNationalIdNumber(@Valid @RequestBody PatientSearchRequestDTO search) {
 		patientService.deletePatientByNationalIdNumber(search.getNationalIdNumber());
 	}
 
 	@PutMapping
-	public void updatePatientByNationalIdNumber(@RequestBody PatientDTO patient) {
+	public void updatePatientByNationalIdNumber(@Valid @RequestBody PatientDTO patient) {
 		patientService.updatePatientByNationalIdNumber(patient);
 	}
 
 	@PatchMapping
-	public void partiallyUpdatePatientByNationalIdNumber(@RequestBody PatientPartiallyUpdateRequestDTO patient) {
+	public void partiallyUpdatePatientByNationalIdNumber(@Valid @RequestBody PatientPartiallyUpdateRequestDTO patient) {
 		patientService.partiallyUpdatePatientByNationalIdNumber(patient);
 	}
 }

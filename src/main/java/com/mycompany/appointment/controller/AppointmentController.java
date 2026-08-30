@@ -16,6 +16,8 @@ import com.mycompany.appointment.dto.AppointmentPartiallyUpdateRequestDTO;
 import com.mycompany.appointment.dto.AppointmentSearchRequestDTO;
 import com.mycompany.appointment.service.AppointmentService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/v1/citas")
 public class AppointmentController {
@@ -32,27 +34,27 @@ public class AppointmentController {
 	}
 
 	@PostMapping("/search")
-	public List<AppointmentDTO> getAllAppointmentsByPatientNationalIdNumber(@RequestBody AppointmentSearchRequestDTO search) {
+	public List<AppointmentDTO> getAllAppointmentsByPatientNationalIdNumber(@Valid @RequestBody AppointmentSearchRequestDTO search) {
 		return appointmentService.getAllAppointmentsByPatientNationalIdNumber(search.getPatientNationalIdNumber());
 	}
 
 	@PostMapping("/create")
-	public void createAppointment(@RequestBody AppointmentCreateRequestDTO appointment) {
+	public void createAppointment(@Valid @RequestBody AppointmentCreateRequestDTO appointment) {
 		appointmentService.createAppointment(appointment);
 	}
 	
 	@PostMapping("/complete")
-	public void completeAppointment(@RequestBody AppointmentFinishRequestDTO request) {
+	public void completeAppointment(@Valid @RequestBody AppointmentFinishRequestDTO request) {
 		appointmentService.completeAppointment(request);
 	}
 
 	@PostMapping("/cancel")
-	public void cancelAppointment(@RequestBody AppointmentFinishRequestDTO request) {
+	public void cancelAppointment(@Valid @RequestBody AppointmentFinishRequestDTO request) {
 		appointmentService.cancelAppointment(request);
 	}
 
 	@PatchMapping
-	public void partiallyUpdateAppointment(@RequestBody AppointmentPartiallyUpdateRequestDTO request) {
+	public void partiallyUpdateAppointment(@Valid @RequestBody AppointmentPartiallyUpdateRequestDTO request) {
 		appointmentService.partiallyUpdateAppointment(request);
 	}
 }
