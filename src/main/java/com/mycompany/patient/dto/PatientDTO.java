@@ -3,11 +3,11 @@ package com.mycompany.patient.dto;
 import jakarta.validation.constraints.NotBlank;
 
 public class PatientDTO {
-	@NotBlank(message = "El nombre es obligatorio")
+	@NotBlank(message = "{patient.error.firstNameMandatory}")
 	private String firstName;
-	@NotBlank(message = "El apellido es obligatorio.")
+	@NotBlank(message = "{patient.error.lastNameMandatory}")
 	private String lastName;
-	@NotBlank(message = "El DNI es obligatorio")
+	@NotBlank(message = "{patient.error.nationalIdNumberMandatory}")
 	private String nationalIdNumber;
 
 	public PatientDTO() {

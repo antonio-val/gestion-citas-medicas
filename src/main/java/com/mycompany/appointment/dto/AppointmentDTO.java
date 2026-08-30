@@ -8,21 +8,21 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 public class AppointmentDTO {
-	@NotNull
+	@NotNull(message = "{appointment.error.idMandatory}")
 	private Long id;
-	@NotNull
+	@NotNull(message = "{appointment.error.startMandatory}")
 	private LocalDateTime start;
-	@NotNull
+	@NotNull(message = "{appointment.error.endMandatory}")
 	private LocalDateTime end;
 	private String reason;
 	private String finalNotes;
-	@NotNull
+	@NotNull(message = "{appointment.error.statusMandatory}")
 	private AppointmentStatus status;
-	@NotBlank
+	@NotBlank(message = "{patient.error.firstNameMandatory}")
 	private String patientFirstName;
-	@NotBlank
+	@NotBlank(message = "{patient.error.lastNameMandatory}")
 	private String patientLastName;
-	@NotBlank
+	@NotBlank(message = "{patient.error.nationalIdNumberMandatory}")
 	private String patientNationalIdNumber;
 
 	public AppointmentDTO() {

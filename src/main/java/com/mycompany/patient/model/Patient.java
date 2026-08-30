@@ -17,15 +17,15 @@ public class Patient {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotBlank(message = "El nombre es obligatorio.")
+	@NotBlank(message = "{patient.error.firstNameMandatory}")
 	@Length(max = 50)
 	private String firstName;
 
-	@NotBlank(message = "El apellido es obligatorio.")
+	@NotBlank(message = "{patient.error.lastNameMandatory}")
 	@Length(max = 100)
 	private String lastName;
 
-	@NotBlank(message = "El DNI es obligatorio.")
+	@NotBlank(message = "{patient.error.nationalIdNumberMandatory}")
 	@Column(unique = true, length = 20)
 	private String nationalIdNumber;
 

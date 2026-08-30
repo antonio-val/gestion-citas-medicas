@@ -24,9 +24,11 @@ public class Appointment {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@Column(name = "start_date_time", nullable = false)
+	@Column(name = "start_date_time")
+	@NotNull(message = "{appointment.error.startMandatory}")
 	private LocalDateTime startDateTime;
-	@Column(name = "end_date_time", nullable = false)
+	@Column(name = "end_date_time")
+	@NotNull(message = "{appointment.error.endMandatory}")
 	private LocalDateTime endDateTime;
 	@Length(max = 255)
 	private String reason;
@@ -34,7 +36,8 @@ public class Appointment {
 	private String finalNotes;
 
 	@Enumerated(EnumType.STRING)
-	@Column(nullable = false, length = 20)
+	@Column(length = 20)
+	@NotNull(message = "{appointment.error.statusMandatory}")
 	private AppointmentStatus status;
 	
 	@NotNull

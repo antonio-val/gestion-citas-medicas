@@ -6,12 +6,12 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 public class AppointmentCreateRequestDTO {
-	@NotNull
+	@NotNull(message = "{appointment.error.startMandatory}")
 	private LocalDateTime start;
-	@NotNull
+	@NotNull(message = "{appointment.error.durationMandatory}")
 	private Integer durationMinutes;
 	private String reason;
-	@NotBlank
+	@NotBlank(message = "{patient.error.nationalIdNumberMandatory}")
 	private String patientNationalIdNumber;
 
 	public AppointmentCreateRequestDTO(LocalDateTime start, Integer durationMinutes, String reason, String patientNationalIdNumber) {

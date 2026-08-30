@@ -3,7 +3,7 @@ package com.mycompany.appointment.dto;
 import jakarta.validation.constraints.NotBlank;
 
 public class AppointmentSearchRequestDTO {
-	@NotBlank
+	@NotBlank(message = "{patient.error.nationalIdNumberMandatory}")
 	private String patientNationalIdNumber;
 
 	public AppointmentSearchRequestDTO() {

@@ -8,9 +8,9 @@ import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
 
 public class AppointmentPartiallyUpdateRequestDTO {
-	@NotNull
+	@NotNull(message = "{appointment.error.idMandatory}")
 	private Long id;
-	@Future
+	@Future(message = "{appointment.error.startInFutureMandatory}")
 	private LocalDateTime start;
 	private Integer duration;
 	private String reason;

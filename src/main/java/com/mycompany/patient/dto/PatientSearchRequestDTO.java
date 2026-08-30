@@ -3,7 +3,7 @@ package com.mycompany.patient.dto;
 import jakarta.validation.constraints.NotBlank;
 
 public class PatientSearchRequestDTO {
-	@NotBlank(message = "El DNI es obligatorio")
+	@NotBlank(message = "{patient.error.nationalIdNumberMandatory}")
 	private String nationalIdNumber;
 
 	public PatientSearchRequestDTO(String nationalIdNumber) {

@@ -3,7 +3,7 @@ package com.mycompany.appointment.dto;
 import jakarta.validation.constraints.NotBlank;
 
 public class AppointmentFinishRequestDTO {
-	@NotBlank
+	@NotBlank(message = "{appointment.error.idMandatory}")
 	private Long id;
 	private String finalNotes;
 

@@ -11,7 +11,7 @@ import com.mycompany.appointment.dto.AppointmentCreateRequestDTO;
 import com.mycompany.appointment.dto.AppointmentDTO;
 import com.mycompany.appointment.dto.AppointmentFinishRequestDTO;
 import com.mycompany.appointment.dto.AppointmentPartiallyUpdateRequestDTO;
-import com.mycompany.appointment.exception.AppointmentException;
+import com.mycompany.appointment.exception.NotModifiedAppointmentException;
 import com.mycompany.appointment.exception.AppointmentNotFoundException;
 import com.mycompany.appointment.exception.OverlappingAppointmentException;
 import com.mycompany.appointment.mapper.AppointmentMapper;
@@ -92,8 +92,8 @@ public class AppointmentService {
 		Appointment appointment = getAppointment(request);
 
 		if(isAppointmentFinished(appointment)) {
-			String msg = "Cita no puede ser modificada al no estar modificada. Id de la cita: " + appointment.getId() + "; Estado de la cita: " + appointment.getStatus();
-			throw new AppointmentException(msg);
+			String msgKey = "appointment.error.finishedAppointmentCannotBeModified";
+			throw new NotModifiedAppointmentException(msgKey, appointment.getId(), appointment.getStatus());
 		}
 		
 		LocalDateTime start = getUpdatedStart(appointment, request);
