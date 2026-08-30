@@ -2,6 +2,8 @@ package com.mycompany.patient.model;
 
 import java.util.Objects;
 
+import org.hibernate.validator.constraints.Length;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -16,13 +18,15 @@ public class Patient {
 	private Long id;
 	
 	@NotBlank(message = "El nombre es obligatorio.")
+	@Length(max = 50)
 	private String firstName;
 
 	@NotBlank(message = "El apellido es obligatorio.")
+	@Length(max = 100)
 	private String lastName;
 
 	@NotBlank(message = "El DNI es obligatorio.")
-	@Column(unique = true)
+	@Column(unique = true, length = 20)
 	private String nationalIdNumber;
 
 	public Patient() {

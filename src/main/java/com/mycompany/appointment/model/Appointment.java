@@ -3,6 +3,8 @@ package com.mycompany.appointment.model;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+import org.hibernate.validator.constraints.Length;
+
 import com.mycompany.patient.model.Patient;
 
 import jakarta.persistence.Column;
@@ -26,11 +28,13 @@ public class Appointment {
 	private LocalDateTime startDateTime;
 	@Column(name = "end_date_time", nullable = false)
 	private LocalDateTime endDateTime;
+	@Length(max = 255)
 	private String reason;
+	@Length(max = 255)
 	private String finalNotes;
 
 	@Enumerated(EnumType.STRING)
-	@NotNull
+	@Column(nullable = false, length = 20)
 	private AppointmentStatus status;
 	
 	@NotNull
