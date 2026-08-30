@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mycompany.patient.dto.PatientDTO;
-import com.mycompany.patient.dto.PatientPartiallyUpdateDTO;
+import com.mycompany.patient.dto.PatientPartiallyUpdateRequestDTO;
 import com.mycompany.patient.dto.PatientSearchRequestDTO;
 import com.mycompany.patient.service.PatientService;
 
@@ -53,7 +53,7 @@ public class PatientController {
 	}
 
 	@PatchMapping
-	public void partiallyUpdatePatientByNationalIdNumber(@RequestBody PatientPartiallyUpdateDTO patient) {
+	public void partiallyUpdatePatientByNationalIdNumber(@RequestBody PatientPartiallyUpdateRequestDTO patient) {
 		patientService.partiallyUpdatePatientByNationalIdNumber(patient);
 	}
 }

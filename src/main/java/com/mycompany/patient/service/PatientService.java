@@ -6,7 +6,7 @@ import org.apache.logging.log4j.util.Strings;
 import org.springframework.stereotype.Service;
 
 import com.mycompany.patient.dto.PatientDTO;
-import com.mycompany.patient.dto.PatientPartiallyUpdateDTO;
+import com.mycompany.patient.dto.PatientPartiallyUpdateRequestDTO;
 import com.mycompany.patient.exception.PatientExistsException;
 import com.mycompany.patient.exception.PatientNotFoundException;
 import com.mycompany.patient.mapper.PatientMapper;
@@ -63,7 +63,7 @@ public class PatientService {
 		repository.save(patient);
 	}
 
-	public void partiallyUpdatePatientByNationalIdNumber(PatientPartiallyUpdateDTO updatedPatient) {
+	public void partiallyUpdatePatientByNationalIdNumber(PatientPartiallyUpdateRequestDTO updatedPatient) {
 		Patient patient = getPatientEntityByNationalIdNumber(updatedPatient.getNationalIdNumber());
 		
 		if(Strings.isNotBlank(updatedPatient.getFirstName()))
