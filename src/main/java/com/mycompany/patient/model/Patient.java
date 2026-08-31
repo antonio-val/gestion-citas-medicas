@@ -45,7 +45,7 @@ public class Patient {
 	private boolean deleted = false;
 	
 	public Patient() {
-		super();
+		// Empty
 	}
 
 	public Long getId() {

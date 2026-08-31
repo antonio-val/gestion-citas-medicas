@@ -23,7 +23,6 @@ public class PatientService {
 	private final PatientMapper patientMapper;
 	
 	public PatientService(PatientRepository repository, PatientMapper patientMapper) {
-		super();
 		this.repository = repository;
 		this.patientMapper = patientMapper;
 	}

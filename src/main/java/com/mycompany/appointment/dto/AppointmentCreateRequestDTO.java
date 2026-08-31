@@ -15,7 +15,6 @@ public class AppointmentCreateRequestDTO {
 	private UUID patientPublicId;
 
 	public AppointmentCreateRequestDTO(LocalDateTime start, Integer durationMinutes, String reason, UUID patientPublicId) {
-		super();
 		this.start = start;
 		this.durationMinutes = durationMinutes;
 		this.reason = reason;

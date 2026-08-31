@@ -31,7 +31,6 @@ public class AppointmentService {
 	
 	public AppointmentService(AppointmentRepository appointmentRepository, AppointmentMapper appointmentMapper,
 			PatientRepository patientRepository) {
-		super();
 		this.appointmentRepository = appointmentRepository;
 		this.appointmentMapper = appointmentMapper;
 		this.patientRepository = patientRepository;

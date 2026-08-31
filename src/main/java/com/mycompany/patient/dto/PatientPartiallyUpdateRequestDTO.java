@@ -6,7 +6,7 @@ public class PatientPartiallyUpdateRequestDTO {
 	private String nationalIdNumber;
 
 	public PatientPartiallyUpdateRequestDTO() {
-		super();
+		// Empty
 	}
 	
 	public String getFirstName() {

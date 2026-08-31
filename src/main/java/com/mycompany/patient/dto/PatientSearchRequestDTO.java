@@ -7,7 +7,6 @@ public class PatientSearchRequestDTO {
 	private String nationalIdNumber;
 
 	public PatientSearchRequestDTO(String nationalIdNumber) {
-		super();
 		this.nationalIdNumber = nationalIdNumber;
 	}
 

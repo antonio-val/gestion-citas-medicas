@@ -7,7 +7,7 @@ public class AppointmentSearchRequestDTO {
 	private String patientNationalIdNumber;
 
 	public AppointmentSearchRequestDTO() {
-		super();
+		// Empty
 	}
 
 	public String getPatientNationalIdNumber() {

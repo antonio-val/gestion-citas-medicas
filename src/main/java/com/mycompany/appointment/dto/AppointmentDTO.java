@@ -27,7 +27,7 @@ public class AppointmentDTO {
 	private String patientNationalIdNumber;
 
 	public AppointmentDTO() {
-		super();
+		// Empty
 	}
 
 	public UUID getPublicId() {

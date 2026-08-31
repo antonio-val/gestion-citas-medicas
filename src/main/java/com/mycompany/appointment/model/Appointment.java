@@ -57,7 +57,7 @@ public class Appointment {
 	private Patient patient;
 
 	public Appointment() {
-		super();
+		// Empty
 	}
 
 	public Long getId() {

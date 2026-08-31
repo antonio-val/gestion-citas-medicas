@@ -26,7 +26,6 @@ public class AppointmentController {
 	private final AppointmentService appointmentService;
 	
 	public AppointmentController(AppointmentService appointmentService) {
-		super();
 		this.appointmentService = appointmentService;
 	}
 

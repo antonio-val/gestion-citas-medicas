@@ -11,7 +11,7 @@ public class PatientCreateRequestDTO {
 	private String nationalIdNumber;
 
 	public PatientCreateRequestDTO() {
-		super();
+		// Empty
 	}
 	
 	public String getFirstName() {

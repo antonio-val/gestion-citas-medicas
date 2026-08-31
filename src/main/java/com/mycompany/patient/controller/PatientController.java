@@ -27,7 +27,6 @@ public class PatientController {
 	private final PatientService patientService;
 	
 	public PatientController(PatientService patientService) {
-		super();
 		this.patientService = patientService;
 	}
 

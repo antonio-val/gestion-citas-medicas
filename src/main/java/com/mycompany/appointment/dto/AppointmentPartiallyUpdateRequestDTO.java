@@ -19,7 +19,7 @@ public class AppointmentPartiallyUpdateRequestDTO {
 	private AppointmentStatus status;
 
 	public AppointmentPartiallyUpdateRequestDTO() {
-		super();
+		// Empty
 	}
 
 	public UUID getPublicId() {

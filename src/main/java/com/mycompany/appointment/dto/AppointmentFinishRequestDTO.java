@@ -4,7 +4,6 @@ public class AppointmentFinishRequestDTO {
 	private String finalNotes;
 
 	public AppointmentFinishRequestDTO(String finalNotes) {
-		super();
 		this.finalNotes = finalNotes;
 	}
 

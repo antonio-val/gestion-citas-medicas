@@ -16,7 +16,7 @@ public class PatientDTO {
 	private String nationalIdNumber;
 
 	public PatientDTO() {
-		super();
+		// Empty
 	}
 	
 	public UUID getPublicId() {
