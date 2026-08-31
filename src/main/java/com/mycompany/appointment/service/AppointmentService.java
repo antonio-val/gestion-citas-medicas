@@ -49,7 +49,7 @@ public class AppointmentService {
 		return appointmentRepository.findByPatientNationalIdNumber(id).stream().map(a -> appointmentMapper.toDto(a)).toList();
 	}
 
-	public void createAppointment(AppointmentCreateRequestDTO appointmentDto) {
+	public AppointmentDTO createAppointment(AppointmentCreateRequestDTO appointmentDto) {
 		Patient patient = getPatient(appointmentDto);
 		Appointment appointment = appointmentMapper.toNewAppointment(appointmentDto, patient);
 
@@ -57,17 +57,19 @@ public class AppointmentService {
 			throw new OverlappingAppointmentException(appointment.getStartDateTime(), appointment.getEndDateTime());
 		
 		appointmentRepository.save(appointment);
+		
+		return appointmentMapper.toDto(appointment);
 	}
 	
 	private Patient getPatient(AppointmentCreateRequestDTO appointment) {
 		return patientRepository.findByPublicId(appointment.getPatientPublicId()).orElseThrow(() -> new PatientNotFoundException("patient.error.publicIdNotFound", appointment.getPatientPublicId()));
 	}
 
-	public void completeAppointment(UUID publicId, AppointmentFinishRequestDTO request) {
-		finishAppointment(publicId, request, AppointmentStatus.COMPLETED);
+	public AppointmentDTO completeAppointment(UUID publicId, AppointmentFinishRequestDTO request) {
+		return finishAppointment(publicId, request, AppointmentStatus.COMPLETED);
 	}
 	
-	private void finishAppointment(UUID publicId, AppointmentFinishRequestDTO request, AppointmentStatus status) {
+	private AppointmentDTO finishAppointment(UUID publicId, AppointmentFinishRequestDTO request, AppointmentStatus status) {
 		Appointment appointment = getAppointment(publicId);
 		appointment.setStatus(status);
 
@@ -75,17 +77,19 @@ public class AppointmentService {
 			appointment.setFinalNotes(request.getFinalNotes());
 
 		appointmentRepository.save(appointment);
+		
+		return appointmentMapper.toDto(appointment);
 	}
 	
 	private Appointment getAppointment(UUID id) {
 		return appointmentRepository.findByPublicId(id).orElseThrow(() -> new AppointmentNotFoundException(id));
 	}
 
-	public void cancelAppointment(UUID publicId, AppointmentFinishRequestDTO request) {
-		finishAppointment(publicId, request, AppointmentStatus.CANCELLED);
+	public AppointmentDTO cancelAppointment(UUID publicId, AppointmentFinishRequestDTO request) {
+		return finishAppointment(publicId, request, AppointmentStatus.CANCELLED);
 	}
 
-	public void partiallyUpdateAppointment(UUID publicId, AppointmentPartiallyUpdateRequestDTO request) {
+	public AppointmentDTO partiallyUpdateAppointment(UUID publicId, AppointmentPartiallyUpdateRequestDTO request) {
 		Appointment appointment = getAppointment(publicId);
 
 		if(isAppointmentFinished(appointment)) {
@@ -119,6 +123,8 @@ public class AppointmentService {
 			appointment.setStatus(request.getStatus());
 		
 		appointmentRepository.save(appointment);
+		
+		return appointmentMapper.toDto(appointment);
 	}
 	
 	private LocalDateTime getUpdatedStart(Appointment appointment, AppointmentPartiallyUpdateRequestDTO request) {

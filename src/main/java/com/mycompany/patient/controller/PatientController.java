@@ -42,8 +42,8 @@ public class PatientController {
 	}
 	
 	@PostMapping
-	public void createPatient(@Valid @RequestBody PatientCreateRequestDTO patient) {
-		patientService.createPatient(patient);
+	public PatientDTO createPatient(@Valid @RequestBody PatientCreateRequestDTO patient) {
+		return patientService.createPatient(patient);
 	}
 	
 	@DeleteMapping("/{publicId}")
@@ -52,12 +52,12 @@ public class PatientController {
 	}
 
 	@PutMapping("/{publicId}")
-	public void updatePatient(@PathVariable UUID publicId, @Valid @RequestBody PatientDTO patient) {
-		patientService.updatePatient(publicId, patient);
+	public PatientDTO updatePatient(@PathVariable UUID publicId, @Valid @RequestBody PatientDTO patient) {
+		return patientService.updatePatient(publicId, patient);
 	}
 
 	@PatchMapping("/{publicId}")
-	public void partiallyUpdatePatient(@PathVariable UUID publicId, @Valid @RequestBody PatientPartiallyUpdateRequestDTO patient) {
-		patientService.partiallyUpdatePatient(publicId, patient);
+	public PatientDTO partiallyUpdatePatient(@PathVariable UUID publicId, @Valid @RequestBody PatientPartiallyUpdateRequestDTO patient) {
+		return patientService.partiallyUpdatePatient(publicId, patient);
 	}
 }

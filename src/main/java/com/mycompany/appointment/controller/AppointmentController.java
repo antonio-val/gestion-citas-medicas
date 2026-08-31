@@ -41,22 +41,22 @@ public class AppointmentController {
 	}
 
 	@PostMapping
-	public void createAppointment(@Valid @RequestBody AppointmentCreateRequestDTO appointment) {
-		appointmentService.createAppointment(appointment);
+	public AppointmentDTO createAppointment(@Valid @RequestBody AppointmentCreateRequestDTO appointment) {
+		return appointmentService.createAppointment(appointment);
 	}
 	
 	@PatchMapping("/{publicId}/complete")
-	public void completeAppointment(@PathVariable UUID publicId, @Valid @RequestBody AppointmentFinishRequestDTO request) {
-		appointmentService.completeAppointment(publicId, request);
+	public AppointmentDTO completeAppointment(@PathVariable UUID publicId, @Valid @RequestBody AppointmentFinishRequestDTO request) {
+		return appointmentService.completeAppointment(publicId, request);
 	}
 
 	@PatchMapping("/{publicId}/cancel")
-	public void cancelAppointment(@PathVariable UUID publicId, @Valid @RequestBody AppointmentFinishRequestDTO request) {
-		appointmentService.cancelAppointment(publicId, request);
+	public AppointmentDTO cancelAppointment(@PathVariable UUID publicId, @Valid @RequestBody AppointmentFinishRequestDTO request) {
+		return appointmentService.cancelAppointment(publicId, request);
 	}
 
 	@PatchMapping("/{publicId}")
-	public void partiallyUpdateAppointment(@PathVariable UUID publicId, @Valid @RequestBody AppointmentPartiallyUpdateRequestDTO request) {
-		appointmentService.partiallyUpdateAppointment(publicId, request);
+	public AppointmentDTO partiallyUpdateAppointment(@PathVariable UUID publicId, @Valid @RequestBody AppointmentPartiallyUpdateRequestDTO request) {
+		return appointmentService.partiallyUpdateAppointment(publicId, request);
 	}
 }

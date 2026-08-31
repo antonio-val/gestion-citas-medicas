@@ -46,12 +46,14 @@ public class PatientService {
 		return repository.findByPublicId(publicId).orElseThrow(() -> new PatientNotFoundException("patient.error.publicIdNotFound", publicId));
 	}
 
-	public void createPatient(PatientCreateRequestDTO patientDto) {
+	public PatientDTO createPatient(PatientCreateRequestDTO patientDto) {
 		if(repository.existsByNationalIdNumber(patientDto.getNationalIdNumber()))
 			throw new PatientExistsException(patientDto.getNationalIdNumber());
 		
 		Patient patient = patientMapper.toNewEntity(patientDto);
 		repository.save(patient);
+		
+		return patientMapper.toDto(patient);
 	}
 
 	@Transactional
@@ -62,14 +64,16 @@ public class PatientService {
 		repository.deleteByPublicId(publicId);
 	}
 
-	public void updatePatient(UUID publicId, PatientDTO updatedPatient) {
+	public PatientDTO updatePatient(UUID publicId, PatientDTO updatedPatient) {
 		Patient patient = getPatientEntity(publicId);
 		
 		patient.setFirstName(updatedPatient.getFirstName());
 		repository.save(patient);
+		
+		return patientMapper.toDto(patient);
 	}
 
-	public void partiallyUpdatePatient(UUID publicId, PatientPartiallyUpdateRequestDTO updatedPatient) {
+	public PatientDTO partiallyUpdatePatient(UUID publicId, PatientPartiallyUpdateRequestDTO updatedPatient) {
 		Patient patient = getPatientEntity(publicId);
 		
 		if(Strings.isNotBlank(updatedPatient.getFirstName()))
@@ -79,5 +83,7 @@ public class PatientService {
 			patient.setLastName(updatedPatient.getLastName());
 
 		repository.save(patient);
+
+		return patientMapper.toDto(patient);
 	}
 }
