@@ -19,7 +19,7 @@ import com.mycompany.appointment.service.AppointmentService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/api/v1/citas")
+@RequestMapping("/api/v1/appointments")
 public class AppointmentController {
 	private final AppointmentService appointmentService;
 	
