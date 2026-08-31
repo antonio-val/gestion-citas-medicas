@@ -1,8 +1,8 @@
 package com.mycompany.appointment.dto;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 public class AppointmentCreateRequestDTO {
@@ -11,15 +11,15 @@ public class AppointmentCreateRequestDTO {
 	@NotNull(message = "{appointment.error.durationMandatory}")
 	private Integer durationMinutes;
 	private String reason;
-	@NotBlank(message = "{patient.error.nationalIdNumberMandatory}")
-	private String patientNationalIdNumber;
+	@NotNull(message = "{patient.error.publicIdMandatory}")
+	private UUID patientPublicId;
 
-	public AppointmentCreateRequestDTO(LocalDateTime start, Integer durationMinutes, String reason, String patientNationalIdNumber) {
+	public AppointmentCreateRequestDTO(LocalDateTime start, Integer durationMinutes, String reason, UUID patientPublicId) {
 		super();
 		this.start = start;
 		this.durationMinutes = durationMinutes;
 		this.reason = reason;
-		this.patientNationalIdNumber = patientNationalIdNumber;
+		this.patientPublicId = patientPublicId;
 	}
 
 	public LocalDateTime getStart() {
@@ -46,10 +46,11 @@ public class AppointmentCreateRequestDTO {
 		this.reason = reason;
 	}
 
-	public String getPatientNationalIdNumber() {
-		return patientNationalIdNumber;
+	public UUID getPatientPublicId() {
+		return patientPublicId;
 	}
 
-	public void setPatientNationalIdNumber(String patientNationalIdNumber) {
-		this.patientNationalIdNumber = patientNationalIdNumber;
-	}}
+	public void setPatientPublicId(UUID patientPublicId) {
+		this.patientPublicId = patientPublicId;
+	}
+}

@@ -60,15 +60,15 @@ public class AppointmentService {
 	}
 	
 	private Patient getPatient(AppointmentCreateRequestDTO appointment) {
-		return patientRepository.findByNationalIdNumber(appointment.getPatientNationalIdNumber()).orElseThrow(() -> new PatientNotFoundException(appointment.getPatientNationalIdNumber()));
+		return patientRepository.findByPublicId(appointment.getPatientPublicId()).orElseThrow(() -> new PatientNotFoundException("patient.error.publicIdNotFound", appointment.getPatientPublicId()));
 	}
 
-	public void completeAppointment(AppointmentFinishRequestDTO request) {
-		finishAppointment(request, AppointmentStatus.COMPLETED);
+	public void completeAppointment(UUID publicId, AppointmentFinishRequestDTO request) {
+		finishAppointment(publicId, request, AppointmentStatus.COMPLETED);
 	}
 	
-	private void finishAppointment(AppointmentFinishRequestDTO request, AppointmentStatus status) {
-		Appointment appointment = getAppointment(request);
+	private void finishAppointment(UUID publicId, AppointmentFinishRequestDTO request, AppointmentStatus status) {
+		Appointment appointment = getAppointment(publicId);
 		appointment.setStatus(status);
 
 		if(Strings.isNotBlank(request.getFinalNotes()))
@@ -77,20 +77,16 @@ public class AppointmentService {
 		appointmentRepository.save(appointment);
 	}
 	
-	private Appointment getAppointment(AppointmentFinishRequestDTO request) {
-		return getAppointment(request.getPublicId());
-	}
-
 	private Appointment getAppointment(UUID id) {
 		return appointmentRepository.findByPublicId(id).orElseThrow(() -> new AppointmentNotFoundException(id));
 	}
 
-	public void cancelAppointment(AppointmentFinishRequestDTO request) {
-		finishAppointment(request, AppointmentStatus.CANCELLED);
+	public void cancelAppointment(UUID publicId, AppointmentFinishRequestDTO request) {
+		finishAppointment(publicId, request, AppointmentStatus.CANCELLED);
 	}
 
-	public void partiallyUpdateAppointment(AppointmentPartiallyUpdateRequestDTO request) {
-		Appointment appointment = getAppointment(request);
+	public void partiallyUpdateAppointment(UUID publicId, AppointmentPartiallyUpdateRequestDTO request) {
+		Appointment appointment = getAppointment(publicId);
 
 		if(isAppointmentFinished(appointment)) {
 			String msgKey = "appointment.error.finishedAppointmentCannotBeModified";
@@ -143,10 +139,6 @@ public class AppointmentService {
 		return end;
 	}
 
-	private Appointment getAppointment(AppointmentPartiallyUpdateRequestDTO request) {
-		return getAppointment(request.getPublicId());
-	}
-	
 	private boolean isAppointmentFinished(Appointment appointment) {
 		return appointment.getStatus() == AppointmentStatus.COMPLETED || appointment.getStatus() == AppointmentStatus.CANCELLED;
 		

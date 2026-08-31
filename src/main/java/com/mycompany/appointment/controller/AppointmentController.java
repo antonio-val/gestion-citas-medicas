@@ -1,9 +1,11 @@
 package com.mycompany.appointment.controller;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,23 +40,23 @@ public class AppointmentController {
 		return appointmentService.getAllAppointmentsByPatientNationalIdNumber(search.getPatientNationalIdNumber());
 	}
 
-	@PostMapping("/create")
+	@PostMapping
 	public void createAppointment(@Valid @RequestBody AppointmentCreateRequestDTO appointment) {
 		appointmentService.createAppointment(appointment);
 	}
 	
-	@PostMapping("/complete")
-	public void completeAppointment(@Valid @RequestBody AppointmentFinishRequestDTO request) {
-		appointmentService.completeAppointment(request);
+	@PatchMapping("/{publicId}/complete")
+	public void completeAppointment(@PathVariable UUID publicId, @Valid @RequestBody AppointmentFinishRequestDTO request) {
+		appointmentService.completeAppointment(publicId, request);
 	}
 
-	@PostMapping("/cancel")
-	public void cancelAppointment(@Valid @RequestBody AppointmentFinishRequestDTO request) {
-		appointmentService.cancelAppointment(request);
+	@PatchMapping("/{publicId}/cancel")
+	public void cancelAppointment(@PathVariable UUID publicId, @Valid @RequestBody AppointmentFinishRequestDTO request) {
+		appointmentService.cancelAppointment(publicId, request);
 	}
 
-	@PatchMapping
-	public void partiallyUpdateAppointment(@Valid @RequestBody AppointmentPartiallyUpdateRequestDTO request) {
-		appointmentService.partiallyUpdateAppointment(request);
+	@PatchMapping("/{publicId}")
+	public void partiallyUpdateAppointment(@PathVariable UUID publicId, @Valid @RequestBody AppointmentPartiallyUpdateRequestDTO request) {
+		appointmentService.partiallyUpdateAppointment(publicId, request);
 	}
 }

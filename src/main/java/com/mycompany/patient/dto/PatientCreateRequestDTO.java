@@ -1,13 +1,8 @@
 package com.mycompany.patient.dto;
 
-import java.util.UUID;
-
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 
-public class PatientDTO {
-	@NotNull(message = "{patient.error.publicIdMandatory}")
-	private UUID publicId;
+public class PatientCreateRequestDTO {
 	@NotBlank(message = "{patient.error.firstNameMandatory}")
 	private String firstName;
 	@NotBlank(message = "{patient.error.lastNameMandatory}")
@@ -15,18 +10,10 @@ public class PatientDTO {
 	@NotBlank(message = "{patient.error.nationalIdNumberMandatory}")
 	private String nationalIdNumber;
 
-	public PatientDTO() {
+	public PatientCreateRequestDTO() {
 		super();
 	}
 	
-	public UUID getPublicId() {
-		return publicId;
-	}
-
-	public void setPublicId(UUID publicId) {
-		this.publicId = publicId;
-	}
-
 	public String getFirstName() {
 		return firstName;
 	}

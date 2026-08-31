@@ -7,9 +7,7 @@ import com.mycompany.common.exception.MyCompanyException;
 public class PatientNotFoundException extends MyCompanyException{
 	private static final long serialVersionUID = 6889175144724384269L;
 
-	private static final String MSG_KEY = "patient.error.nationalIdNumberNotFound";
-	
-	public PatientNotFoundException(String nationalIdNumber) {
-		super(MSG_KEY, HttpStatus.NOT_FOUND, nationalIdNumber);
+	public PatientNotFoundException(String msgKey, Object... args) {
+		super(msgKey, HttpStatus.NOT_FOUND, args);
 	}
 }

@@ -1,11 +1,8 @@
 package com.mycompany.patient.dto;
 
-import jakarta.validation.constraints.NotBlank;
-
 public class PatientPartiallyUpdateRequestDTO {
 	private String firstName;
 	private String lastName;
-	@NotBlank(message = "{patient.error.nationalIdNumberMandatory}")
 	private String nationalIdNumber;
 
 	public PatientPartiallyUpdateRequestDTO() {
