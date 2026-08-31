@@ -2,6 +2,7 @@ package com.mycompany.appointment.model;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
+import java.util.UUID;
 
 import org.hibernate.validator.constraints.Length;
 
@@ -24,14 +25,22 @@ public class Appointment {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
+	@NotNull(message = "{appointment.error.publicIdMandatory}")
+	@Column(name = "public_id", unique = true, updatable = false)
+	private UUID publicId = UUID.randomUUID();
+
 	@Column(name = "start_date_time")
 	@NotNull(message = "{appointment.error.startMandatory}")
 	private LocalDateTime startDateTime;
+
 	@Column(name = "end_date_time")
 	@NotNull(message = "{appointment.error.endMandatory}")
 	private LocalDateTime endDateTime;
+
 	@Length(max = 255)
 	private String reason;
+
 	@Length(max = 255)
 	private String finalNotes;
 
@@ -49,9 +58,10 @@ public class Appointment {
 		super();
 	}
 
-	public Appointment(Long id, LocalDateTime start, LocalDateTime end, String reason, String finalNotes, AppointmentStatus status, Patient patient) {
+	public Appointment(Long id, UUID publicId, LocalDateTime start, LocalDateTime end, String reason, String finalNotes, AppointmentStatus status, Patient patient) {
 		super();
 		this.id = id;
+		this.publicId = publicId;
 		this.startDateTime = start;
 		this.endDateTime = end;
 		this.reason = reason;
@@ -66,6 +76,14 @@ public class Appointment {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public UUID getPublicId() {
+		return publicId;
+	}
+
+	public void setPublicId(UUID publicId) {
+		this.publicId = publicId;
 	}
 
 	public LocalDateTime getStartDateTime() {
@@ -118,7 +136,7 @@ public class Appointment {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(startDateTime, finalNotes, id, patient, reason, status);
+		return Objects.hash(endDateTime, finalNotes, id, patient, publicId, reason, startDateTime, status);
 	}
 
 	@Override
@@ -130,8 +148,9 @@ public class Appointment {
 		if (getClass() != obj.getClass())
 			return false;
 		Appointment other = (Appointment) obj;
-		return Objects.equals(startDateTime, other.startDateTime) && Objects.equals(finalNotes, other.finalNotes)
+		return Objects.equals(endDateTime, other.endDateTime) && Objects.equals(finalNotes, other.finalNotes)
 				&& Objects.equals(id, other.id) && Objects.equals(patient, other.patient)
-				&& Objects.equals(reason, other.reason) && status == other.status;
+				&& Objects.equals(publicId, other.publicId) && Objects.equals(reason, other.reason)
+				&& Objects.equals(startDateTime, other.startDateTime) && status == other.status;
 	}
 }

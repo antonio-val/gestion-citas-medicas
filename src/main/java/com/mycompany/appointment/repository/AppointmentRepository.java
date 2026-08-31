@@ -2,6 +2,8 @@ package com.mycompany.appointment.repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -11,7 +13,9 @@ import com.mycompany.appointment.model.Appointment;
 
 public interface AppointmentRepository extends JpaRepository<Appointment, Long>{
 	List<Appointment> findByPatientNationalIdNumber(String id);
-	
+
+	Optional<Appointment> findByPublicId(UUID publicId);
+
 	boolean existsByStartDateTime(LocalDateTime start);
 	
 	@Query("""

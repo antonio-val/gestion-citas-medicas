@@ -3,6 +3,7 @@ package com.mycompany.appointment.service;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.stereotype.Service;
@@ -77,11 +78,11 @@ public class AppointmentService {
 	}
 	
 	private Appointment getAppointment(AppointmentFinishRequestDTO request) {
-		return getAppointment(request.getId());
+		return getAppointment(request.getPublicId());
 	}
 
-	private Appointment getAppointment(Long id) {
-		return appointmentRepository.findById(id).orElseThrow(() -> new AppointmentNotFoundException(id));
+	private Appointment getAppointment(UUID id) {
+		return appointmentRepository.findByPublicId(id).orElseThrow(() -> new AppointmentNotFoundException(id));
 	}
 
 	public void cancelAppointment(AppointmentFinishRequestDTO request) {
@@ -143,7 +144,7 @@ public class AppointmentService {
 	}
 
 	private Appointment getAppointment(AppointmentPartiallyUpdateRequestDTO request) {
-		return getAppointment(request.getId());
+		return getAppointment(request.getPublicId());
 	}
 	
 	private boolean isAppointmentFinished(Appointment appointment) {

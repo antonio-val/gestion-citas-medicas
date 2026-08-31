@@ -1,6 +1,7 @@
 package com.mycompany.appointment.dto;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 import com.mycompany.appointment.model.AppointmentStatus;
 
@@ -8,8 +9,8 @@ import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
 
 public class AppointmentPartiallyUpdateRequestDTO {
-	@NotNull(message = "{appointment.error.idMandatory}")
-	private Long id;
+	@NotNull(message = "{appointment.error.publicIdMandatory}")
+	private UUID publicId;
 	@Future(message = "{appointment.error.startInFutureMandatory}")
 	private LocalDateTime start;
 	private Integer duration;
@@ -21,12 +22,12 @@ public class AppointmentPartiallyUpdateRequestDTO {
 		super();
 	}
 
-	public Long getId() {
-		return id;
+	public UUID getPublicId() {
+		return publicId;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setId(UUID id) {
+		this.publicId = id;
 	}
 
 	public LocalDateTime getStart() {

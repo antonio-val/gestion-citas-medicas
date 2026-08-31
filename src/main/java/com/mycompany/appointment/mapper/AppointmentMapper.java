@@ -14,7 +14,7 @@ import com.mycompany.patient.model.Patient;
 public class AppointmentMapper {
 	public AppointmentDTO toDto(Appointment appointment) {
 		AppointmentDTO appointmentDto = new AppointmentDTO();
-		appointmentDto.setId(appointment.getId());
+		appointmentDto.setPublicId(appointment.getPublicId());
 		appointmentDto.setStart(appointment.getStartDateTime());
 		appointmentDto.setEnd(appointment.getEndDateTime());
 		appointmentDto.setReason(appointment.getReason());

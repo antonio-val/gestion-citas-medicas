@@ -1,24 +1,26 @@
 package com.mycompany.appointment.dto;
 
+import java.util.UUID;
+
 import jakarta.validation.constraints.NotNull;
 
 public class AppointmentFinishRequestDTO {
-	@NotNull(message = "{appointment.error.idMandatory}")
-	private Long id;
+	@NotNull(message = "{appointment.error.publicIdMandatory}")
+	private UUID publicId;
 	private String finalNotes;
 
-	public AppointmentFinishRequestDTO(Long id, String finalNotes) {
+	public AppointmentFinishRequestDTO(UUID publicId, String finalNotes) {
 		super();
-		this.id = id;
+		this.publicId = publicId;
 		this.finalNotes = finalNotes;
 	}
 
-	public Long getId() {
-		return id;
+	public UUID getPublicId() {
+		return publicId;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setId(UUID publicId) {
+		this.publicId = publicId;
 	}
 
 	public String getFinalNotes() {
