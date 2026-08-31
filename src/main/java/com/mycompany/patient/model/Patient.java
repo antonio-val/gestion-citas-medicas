@@ -3,6 +3,8 @@ package com.mycompany.patient.model;
 import java.util.Objects;
 import java.util.UUID;
 
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
 import org.hibernate.validator.constraints.Length;
 
 import jakarta.persistence.Column;
@@ -14,6 +16,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
+@SQLDelete(sql = "UPDATE patient SET deleted = true WHERE id = ?")
+@SQLRestriction("deleted = false")
 public class Patient {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,17 +39,21 @@ public class Patient {
 	@Column(unique = true, length = 20)
 	private String nationalIdNumber;
 
+	@NotNull(message = "{patient.error.deletedMandatory}")
+	private boolean deleted = false;
+	
 	public Patient() {
 		super();
 	}
 
-	public Patient(Long id, UUID publicId, String firstName, String lastName, String nationalIdNumber) {
+	public Patient(Long id, UUID publicId, String firstName, String lastName, String nationalIdNumber, boolean deleted) {
 		super();
 		this.id = id;
 		this.publicId = publicId;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.nationalIdNumber = nationalIdNumber;
+		this.deleted = deleted;
 	}
 
 	public Long getId() {
@@ -88,9 +96,17 @@ public class Patient {
 		this.nationalIdNumber = nationalIdNumber;
 	}
 
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(firstName, id, lastName, nationalIdNumber, publicId);
+		return Objects.hash(Boolean.valueOf(deleted), firstName, id, lastName, nationalIdNumber, publicId);
 	}
 
 	@Override
@@ -102,7 +118,7 @@ public class Patient {
 		if (getClass() != obj.getClass())
 			return false;
 		Patient other = (Patient) obj;
-		return Objects.equals(firstName, other.firstName) && Objects.equals(id, other.id)
+		return deleted == other.deleted && Objects.equals(firstName, other.firstName) && Objects.equals(id, other.id)
 				&& Objects.equals(lastName, other.lastName) && Objects.equals(nationalIdNumber, other.nationalIdNumber)
 				&& Objects.equals(publicId, other.publicId);
 	}
