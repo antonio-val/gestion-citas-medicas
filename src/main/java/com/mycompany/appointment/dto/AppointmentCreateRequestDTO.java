@@ -14,7 +14,8 @@ public class AppointmentCreateRequestDTO {
 	@NotNull(message = "{patient.error.publicIdMandatory}")
 	private UUID patientPublicId;
 
-	public AppointmentCreateRequestDTO(LocalDateTime start, Integer durationMinutes, String reason, UUID patientPublicId) {
+	public AppointmentCreateRequestDTO(LocalDateTime start, Integer durationMinutes, String reason,
+			UUID patientPublicId) {
 		this.start = start;
 		this.durationMinutes = durationMinutes;
 		this.reason = reason;

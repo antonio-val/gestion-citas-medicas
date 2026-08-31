@@ -28,7 +28,7 @@ public class AppointmentService {
 	private final AppointmentRepository appointmentRepository;
 	private final AppointmentMapper appointmentMapper;
 	private final PatientRepository patientRepository;
-	
+
 	public AppointmentService(AppointmentRepository appointmentRepository, AppointmentMapper appointmentMapper,
 			PatientRepository patientRepository) {
 		this.appointmentRepository = appointmentRepository;
@@ -39,47 +39,51 @@ public class AppointmentService {
 	public List<AppointmentDTO> getAllAppointments() {
 		return appointmentRepository.findAll().stream().map(a -> appointmentMapper.toDto(a)).toList();
 	}
-	
+
 	public List<AppointmentDTO> getAllAppointmentsBy() {
 		return appointmentRepository.findAll().stream().map(a -> appointmentMapper.toDto(a)).toList();
 	}
 
 	public List<AppointmentDTO> getAllAppointmentsByPatientNationalIdNumber(String id) {
-		return appointmentRepository.findByPatientNationalIdNumber(id).stream().map(a -> appointmentMapper.toDto(a)).toList();
+		return appointmentRepository.findByPatientNationalIdNumber(id).stream().map(a -> appointmentMapper.toDto(a))
+				.toList();
 	}
 
 	public AppointmentDTO createAppointment(AppointmentCreateRequestDTO appointmentDto) {
 		Patient patient = getPatient(appointmentDto);
 		Appointment appointment = appointmentMapper.toNewAppointment(appointmentDto, patient);
 
-		if(appointmentRepository.existsOverlappingAppointment(appointment.getStartDateTime(), appointment.getEndDateTime()))
+		if (appointmentRepository.existsOverlappingAppointment(appointment.getStartDateTime(),
+				appointment.getEndDateTime()))
 			throw new OverlappingAppointmentException(appointment.getStartDateTime(), appointment.getEndDateTime());
-		
+
 		appointmentRepository.save(appointment);
-		
+
 		return appointmentMapper.toDto(appointment);
 	}
-	
+
 	private Patient getPatient(AppointmentCreateRequestDTO appointment) {
-		return patientRepository.findByPublicId(appointment.getPatientPublicId()).orElseThrow(() -> new PatientNotFoundException("patient.error.publicIdNotFound", appointment.getPatientPublicId()));
+		return patientRepository.findByPublicId(appointment.getPatientPublicId()).orElseThrow(
+				() -> new PatientNotFoundException("patient.error.publicIdNotFound", appointment.getPatientPublicId()));
 	}
 
 	public AppointmentDTO completeAppointment(UUID publicId, AppointmentFinishRequestDTO request) {
 		return finishAppointment(publicId, request, AppointmentStatus.COMPLETED);
 	}
-	
-	private AppointmentDTO finishAppointment(UUID publicId, AppointmentFinishRequestDTO request, AppointmentStatus status) {
+
+	private AppointmentDTO finishAppointment(UUID publicId, AppointmentFinishRequestDTO request,
+			AppointmentStatus status) {
 		Appointment appointment = getAppointment(publicId);
 		appointment.setStatus(status);
 
-		if(Strings.isNotBlank(request.getFinalNotes()))
+		if (Strings.isNotBlank(request.getFinalNotes()))
 			appointment.setFinalNotes(request.getFinalNotes());
 
 		appointmentRepository.save(appointment);
-		
+
 		return appointmentMapper.toDto(appointment);
 	}
-	
+
 	private Appointment getAppointment(UUID id) {
 		return appointmentRepository.findByPublicId(id).orElseThrow(() -> new AppointmentNotFoundException(id));
 	}
@@ -91,61 +95,62 @@ public class AppointmentService {
 	public AppointmentDTO partiallyUpdateAppointment(UUID publicId, AppointmentPartiallyUpdateRequestDTO request) {
 		Appointment appointment = getAppointment(publicId);
 
-		if(isAppointmentFinished(appointment)) {
+		if (isAppointmentFinished(appointment)) {
 			String msgKey = "appointment.error.finishedAppointmentCannotBeModified";
 			throw new NotModifiedAppointmentException(msgKey, appointment.getId(), appointment.getStatus());
 		}
-		
+
 		LocalDateTime start = getUpdatedStart(appointment, request);
 		LocalDateTime end = getUpdatedEnd(appointment, request);
-		boolean timesHaveChanged = !start.equals(appointment.getStartDateTime()) ||
-				!end.equals(appointment.getEndDateTime());
-		if(timesHaveChanged) {
-			if(appointmentRepository.existsOverlappingAppointmentExcludingSelf(start, end, appointment.getId()))
+		boolean timesHaveChanged = !start.equals(appointment.getStartDateTime())
+				|| !end.equals(appointment.getEndDateTime());
+		if (timesHaveChanged) {
+			if (appointmentRepository.existsOverlappingAppointmentExcludingSelf(start, end, appointment.getId()))
 				throw new OverlappingAppointmentException(start, end);
-			
+
 			appointment.setStartDateTime(start);
 			appointment.setEndDateTime(end);
 		}
-		
-		if(request.getReason() != null)
+
+		if (request.getReason() != null)
 			appointment.setReason(request.getReason());
-		if(Strings.isBlank(appointment.getReason()))
+		if (Strings.isBlank(appointment.getReason()))
 			appointment.setReason(null);
-		
-		if(request.getFinalNotes() != null)
+
+		if (request.getFinalNotes() != null)
 			appointment.setFinalNotes(request.getFinalNotes());
-		if(Strings.isBlank(appointment.getFinalNotes()))
+		if (Strings.isBlank(appointment.getFinalNotes()))
 			appointment.setFinalNotes(null);
-		
-		if(request.getStatus() != null)
+
+		if (request.getStatus() != null)
 			appointment.setStatus(request.getStatus());
-		
+
 		appointmentRepository.save(appointment);
-		
+
 		return appointmentMapper.toDto(appointment);
 	}
-	
+
 	private LocalDateTime getUpdatedStart(Appointment appointment, AppointmentPartiallyUpdateRequestDTO request) {
 		return request.getStart() != null ? request.getStart() : appointment.getStartDateTime();
 	}
 
 	private LocalDateTime getUpdatedEnd(Appointment appointment, AppointmentPartiallyUpdateRequestDTO request) {
 		LocalDateTime start = getUpdatedStart(appointment, request);
-		
+
 		LocalDateTime end;
-		if(request.getStart() != null || request.getDuration() != null) {
-			int minutes = request.getDuration() != null ? request.getDuration() : (int) Duration.between(request.getStart(), appointment.getEndDateTime()).toMinutes();
+		if (request.getStart() != null || request.getDuration() != null) {
+			int minutes = request.getDuration() != null ? request.getDuration()
+					: (int) Duration.between(request.getStart(), appointment.getEndDateTime()).toMinutes();
 			end = start.plusMinutes(minutes);
 		} else {
 			end = appointment.getEndDateTime();
 		}
-		
+
 		return end;
 	}
 
 	private boolean isAppointmentFinished(Appointment appointment) {
-		return appointment.getStatus() == AppointmentStatus.COMPLETED || appointment.getStatus() == AppointmentStatus.CANCELLED;
-		
+		return appointment.getStatus() == AppointmentStatus.COMPLETED
+				|| appointment.getStatus() == AppointmentStatus.CANCELLED;
 	}
 }

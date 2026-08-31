@@ -43,7 +43,7 @@ public class Patient {
 
 	@NotNull(message = "{patient.error.deletedMandatory}")
 	private boolean deleted = false;
-	
+
 	public Patient() {
 		// Empty
 	}

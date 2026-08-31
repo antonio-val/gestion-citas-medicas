@@ -25,26 +25,26 @@ import jakarta.validation.Valid;
 @RequestMapping("api/v1/patients")
 public class PatientController {
 	private final PatientService patientService;
-	
+
 	public PatientController(PatientService patientService) {
 		this.patientService = patientService;
 	}
 
 	@GetMapping
-	public List<PatientDTO> getAllPatients () {
+	public List<PatientDTO> getAllPatients() {
 		return patientService.getAllPatients();
 	}
-	
+
 	@PostMapping("/search")
-	public PatientDTO getPatientByNationalIdNumber (@Valid @RequestBody PatientSearchRequestDTO search) {
+	public PatientDTO getPatientByNationalIdNumber(@Valid @RequestBody PatientSearchRequestDTO search) {
 		return patientService.getPatientByNationalIdNumber(search.getNationalIdNumber());
 	}
-	
+
 	@PostMapping
 	public PatientDTO createPatient(@Valid @RequestBody PatientCreateRequestDTO patient) {
 		return patientService.createPatient(patient);
 	}
-	
+
 	@DeleteMapping("/{publicId}")
 	public void deletePatient(@PathVariable UUID publicId) {
 		patientService.deletePatient(publicId);
@@ -56,7 +56,8 @@ public class PatientController {
 	}
 
 	@PatchMapping("/{publicId}")
-	public PatientDTO partiallyUpdatePatient(@PathVariable UUID publicId, @Valid @RequestBody PatientPartiallyUpdateRequestDTO patient) {
+	public PatientDTO partiallyUpdatePatient(@PathVariable UUID publicId,
+			@Valid @RequestBody PatientPartiallyUpdateRequestDTO patient) {
 		return patientService.partiallyUpdatePatient(publicId, patient);
 	}
 }

@@ -18,7 +18,7 @@ public class PatientDTO {
 	public PatientDTO() {
 		// Empty
 	}
-	
+
 	public UUID getPublicId() {
 		return publicId;
 	}
@@ -30,11 +30,11 @@ public class PatientDTO {
 	public String getFirstName() {
 		return firstName;
 	}
-	
+
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
-	
+
 	public String getLastName() {
 		return lastName;
 	}
@@ -46,7 +46,7 @@ public class PatientDTO {
 	public String getNationalIdNumber() {
 		return nationalIdNumber;
 	}
-	
+
 	public void setNationalIdNumber(String nationalIdNumber) {
 		this.nationalIdNumber = nationalIdNumber;
 	}

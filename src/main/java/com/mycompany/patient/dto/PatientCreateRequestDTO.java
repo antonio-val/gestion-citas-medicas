@@ -13,15 +13,15 @@ public class PatientCreateRequestDTO {
 	public PatientCreateRequestDTO() {
 		// Empty
 	}
-	
+
 	public String getFirstName() {
 		return firstName;
 	}
-	
+
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
-	
+
 	public String getLastName() {
 		return lastName;
 	}
@@ -33,7 +33,7 @@ public class PatientCreateRequestDTO {
 	public String getNationalIdNumber() {
 		return nationalIdNumber;
 	}
-	
+
 	public void setNationalIdNumber(String nationalIdNumber) {
 		this.nationalIdNumber = nationalIdNumber;
 	}

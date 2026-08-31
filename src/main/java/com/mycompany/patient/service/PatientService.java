@@ -21,7 +21,7 @@ import jakarta.transaction.Transactional;
 public class PatientService {
 	private final PatientRepository repository;
 	private final PatientMapper patientMapper;
-	
+
 	public PatientService(PatientRepository repository, PatientMapper patientMapper) {
 		this.repository = repository;
 		this.patientMapper = patientMapper;
@@ -33,52 +33,54 @@ public class PatientService {
 
 	public PatientDTO getPatientByNationalIdNumber(String id) {
 		Patient patient = getPatientEntityByNationalIdNumber(id);
-		
+
 		return patientMapper.toDto(patient);
 	}
 
 	private Patient getPatientEntityByNationalIdNumber(String id) {
-		return repository.findByNationalIdNumber(id).orElseThrow(() -> new PatientNotFoundException("patient.error.nationalIdNumberNotFound", id));
+		return repository.findByNationalIdNumber(id)
+				.orElseThrow(() -> new PatientNotFoundException("patient.error.nationalIdNumberNotFound", id));
 	}
 
 	private Patient getPatientEntity(UUID publicId) {
-		return repository.findByPublicId(publicId).orElseThrow(() -> new PatientNotFoundException("patient.error.publicIdNotFound", publicId));
+		return repository.findByPublicId(publicId)
+				.orElseThrow(() -> new PatientNotFoundException("patient.error.publicIdNotFound", publicId));
 	}
 
 	public PatientDTO createPatient(PatientCreateRequestDTO patientDto) {
-		if(repository.existsByNationalIdNumber(patientDto.getNationalIdNumber()))
+		if (repository.existsByNationalIdNumber(patientDto.getNationalIdNumber()))
 			throw new PatientExistsException(patientDto.getNationalIdNumber());
-		
+
 		Patient patient = patientMapper.toNewEntity(patientDto);
 		repository.save(patient);
-		
+
 		return patientMapper.toDto(patient);
 	}
 
 	@Transactional
 	public void deletePatient(UUID publicId) {
-		if(!repository.existsByPublicId(publicId))
+		if (!repository.existsByPublicId(publicId))
 			throw new PatientNotFoundException("patient.error.publicIdNotFound", publicId);
-		
+
 		repository.deleteByPublicId(publicId);
 	}
 
 	public PatientDTO updatePatient(UUID publicId, PatientDTO updatedPatient) {
 		Patient patient = getPatientEntity(publicId);
-		
+
 		patient.setFirstName(updatedPatient.getFirstName());
 		repository.save(patient);
-		
+
 		return patientMapper.toDto(patient);
 	}
 
 	public PatientDTO partiallyUpdatePatient(UUID publicId, PatientPartiallyUpdateRequestDTO updatedPatient) {
 		Patient patient = getPatientEntity(publicId);
-		
-		if(Strings.isNotBlank(updatedPatient.getFirstName()))
+
+		if (Strings.isNotBlank(updatedPatient.getFirstName()))
 			patient.setFirstName(updatedPatient.getFirstName());
 
-		if(Strings.isNotBlank(updatedPatient.getLastName()))
+		if (Strings.isNotBlank(updatedPatient.getLastName()))
 			patient.setLastName(updatedPatient.getLastName());
 
 		repository.save(patient);

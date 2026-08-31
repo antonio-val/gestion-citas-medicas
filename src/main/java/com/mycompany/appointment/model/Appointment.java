@@ -50,7 +50,7 @@ public class Appointment {
 	@Column(length = 20)
 	@NotNull(message = "{appointment.error.statusMandatory}")
 	private AppointmentStatus status;
-	
+
 	@NotNull(message = "{appointment.error.patientMandatory}")
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn

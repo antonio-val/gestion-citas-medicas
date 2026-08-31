@@ -17,6 +17,4 @@ public class PatientSearchRequestDTO {
 	public void setNationalIdNumber(String nationalIdNumber) {
 		this.nationalIdNumber = nationalIdNumber;
 	}
-
-	
 }

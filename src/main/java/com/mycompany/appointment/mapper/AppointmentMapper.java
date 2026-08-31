@@ -23,7 +23,7 @@ public class AppointmentMapper {
 		appointmentDto.setPatientFirstName(appointment.getPatient().getFirstName());
 		appointmentDto.setPatientLastName(appointment.getPatient().getLastName());
 		appointmentDto.setPatientNationalIdNumber(appointment.getPatient().getNationalIdNumber());
-		
+
 		return appointmentDto;
 	}
 
@@ -34,10 +34,10 @@ public class AppointmentMapper {
 		appointment.setReason(appointmentDto.getReason());
 		appointment.setStatus(AppointmentStatus.SCHEDULED);
 		appointment.setPatient(patient);
-		
+
 		return appointment;
 	}
-	
+
 	private LocalDateTime getEnd(AppointmentCreateRequestDTO appointmentDto) {
 		return appointmentDto.getStart().plusMinutes(appointmentDto.getDurationMinutes());
 	}

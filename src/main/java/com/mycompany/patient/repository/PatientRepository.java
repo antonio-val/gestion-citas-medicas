@@ -9,8 +9,12 @@ import com.mycompany.patient.model.Patient;
 
 public interface PatientRepository extends JpaRepository<Patient, Long> {
 	void deleteByPublicId(UUID publicId);
+
 	boolean existsByNationalIdNumber(String id);
+
 	boolean existsByPublicId(UUID publicId);
+
 	Optional<Patient> findByNationalIdNumber(String id);
+
 	Optional<Patient> findByPublicId(UUID publicId);
 }

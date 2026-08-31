@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus;
 
 import com.mycompany.common.exception.MyCompanyException;
 
-public class OverlappingAppointmentException extends MyCompanyException{
+public class OverlappingAppointmentException extends MyCompanyException {
 	private static final long serialVersionUID = -4858691153021388251L;
 
 	private static final String MSG_KEY = "appointment.error.overlapping";

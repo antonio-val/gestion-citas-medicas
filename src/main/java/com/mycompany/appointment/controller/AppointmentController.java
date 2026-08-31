@@ -24,7 +24,7 @@ import jakarta.validation.Valid;
 @RequestMapping("/api/v1/appointments")
 public class AppointmentController {
 	private final AppointmentService appointmentService;
-	
+
 	public AppointmentController(AppointmentService appointmentService) {
 		this.appointmentService = appointmentService;
 	}
@@ -35,7 +35,8 @@ public class AppointmentController {
 	}
 
 	@PostMapping("/search")
-	public List<AppointmentDTO> getAllAppointmentsByPatientNationalIdNumber(@Valid @RequestBody AppointmentSearchRequestDTO search) {
+	public List<AppointmentDTO> getAllAppointmentsByPatientNationalIdNumber(
+			@Valid @RequestBody AppointmentSearchRequestDTO search) {
 		return appointmentService.getAllAppointmentsByPatientNationalIdNumber(search.getPatientNationalIdNumber());
 	}
 
@@ -43,19 +44,22 @@ public class AppointmentController {
 	public AppointmentDTO createAppointment(@Valid @RequestBody AppointmentCreateRequestDTO appointment) {
 		return appointmentService.createAppointment(appointment);
 	}
-	
+
 	@PatchMapping("/{publicId}/complete")
-	public AppointmentDTO completeAppointment(@PathVariable UUID publicId, @Valid @RequestBody AppointmentFinishRequestDTO request) {
+	public AppointmentDTO completeAppointment(@PathVariable UUID publicId,
+			@Valid @RequestBody AppointmentFinishRequestDTO request) {
 		return appointmentService.completeAppointment(publicId, request);
 	}
 
 	@PatchMapping("/{publicId}/cancel")
-	public AppointmentDTO cancelAppointment(@PathVariable UUID publicId, @Valid @RequestBody AppointmentFinishRequestDTO request) {
+	public AppointmentDTO cancelAppointment(@PathVariable UUID publicId,
+			@Valid @RequestBody AppointmentFinishRequestDTO request) {
 		return appointmentService.cancelAppointment(publicId, request);
 	}
 
 	@PatchMapping("/{publicId}")
-	public AppointmentDTO partiallyUpdateAppointment(@PathVariable UUID publicId, @Valid @RequestBody AppointmentPartiallyUpdateRequestDTO request) {
+	public AppointmentDTO partiallyUpdateAppointment(@PathVariable UUID publicId,
+			@Valid @RequestBody AppointmentPartiallyUpdateRequestDTO request) {
 		return appointmentService.partiallyUpdateAppointment(publicId, request);
 	}
 }

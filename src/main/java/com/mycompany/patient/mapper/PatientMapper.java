@@ -14,25 +14,25 @@ public class PatientMapper {
 		patientDto.setFirstName(patient.getFirstName());
 		patientDto.setLastName(patient.getLastName());
 		patientDto.setNationalIdNumber(patient.getNationalIdNumber());
-		
+
 		return patientDto;
 	}
+
 	public Patient toNewEntity(PatientDTO patientDto) {
 		Patient patient = new Patient();
 		patient.setFirstName(patientDto.getFirstName());
 		patient.setLastName(patientDto.getLastName());
 		patient.setNationalIdNumber(patientDto.getNationalIdNumber());
-		
+
 		return patient;
 	}
-	
+
 	public Patient toNewEntity(PatientCreateRequestDTO patientDto) {
 		Patient patient = new Patient();
 		patient.setFirstName(patientDto.getFirstName());
 		patient.setLastName(patientDto.getLastName());
 		patient.setNationalIdNumber(patientDto.getNationalIdNumber());
-		
+
 		return patient;
 	}
-	
 }

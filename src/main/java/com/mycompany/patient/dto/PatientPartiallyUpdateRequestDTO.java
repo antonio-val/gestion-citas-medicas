@@ -8,11 +8,11 @@ public class PatientPartiallyUpdateRequestDTO {
 	public PatientPartiallyUpdateRequestDTO() {
 		// Empty
 	}
-	
+
 	public String getFirstName() {
 		return firstName;
 	}
-	
+
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
@@ -28,7 +28,7 @@ public class PatientPartiallyUpdateRequestDTO {
 	public String getNationalIdNumber() {
 		return nationalIdNumber;
 	}
-	
+
 	public void setNationalIdNumber(String nationalIdNumber) {
 		this.nationalIdNumber = nationalIdNumber;
 	}

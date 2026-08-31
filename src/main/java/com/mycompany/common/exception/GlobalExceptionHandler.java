@@ -18,17 +18,17 @@ public class GlobalExceptionHandler {
 		super();
 		this.msgSource = msgSource;
 	}
-	
+
 	@ExceptionHandler(MyCompanyException.class)
 	public ResponseEntity<Map<String, Object>> handleMyCompanyException(MyCompanyException e) {
 		String msg = msgSource.getMessage(e.getMessageKey(), e.getArgs(), LocaleContextHolder.getLocale());
-		
+
 		Map<String, Object> body = new HashMap<>();
 		body.put("timestamp", LocalDateTime.now());
 		body.put("status", e.getStatus().value());
 		body.put("error", e.getStatus().getReasonPhrase());
 		body.put("message", msg);
-		
+
 		return ResponseEntity.status(e.getStatus()).body(body);
 	}
 }
