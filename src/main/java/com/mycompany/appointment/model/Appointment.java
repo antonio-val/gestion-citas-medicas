@@ -60,18 +60,6 @@ public class Appointment {
 		super();
 	}
 
-	public Appointment(Long id, UUID publicId, LocalDateTime start, LocalDateTime end, String reason, String finalNotes, AppointmentStatus status, Patient patient) {
-		super();
-		this.id = id;
-		this.publicId = publicId;
-		this.startDateTime = start;
-		this.endDateTime = end;
-		this.reason = reason;
-		this.finalNotes = finalNotes;
-		this.status = status;
-		this.patient = patient;
-	}
-
 	public Long getId() {
 		return id;
 	}
@@ -138,7 +126,7 @@ public class Appointment {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(endDateTime, finalNotes, id, patient, publicId, reason, startDateTime, status);
+		return Objects.hash(publicId);
 	}
 
 	@Override
@@ -150,9 +138,6 @@ public class Appointment {
 		if (getClass() != obj.getClass())
 			return false;
 		Appointment other = (Appointment) obj;
-		return Objects.equals(endDateTime, other.endDateTime) && Objects.equals(finalNotes, other.finalNotes)
-				&& Objects.equals(id, other.id) && Objects.equals(patient, other.patient)
-				&& Objects.equals(publicId, other.publicId) && Objects.equals(reason, other.reason)
-				&& Objects.equals(startDateTime, other.startDateTime) && status == other.status;
+		return Objects.equals(publicId, other.publicId);
 	}
 }

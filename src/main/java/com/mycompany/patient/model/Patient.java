@@ -48,16 +48,6 @@ public class Patient {
 		super();
 	}
 
-	public Patient(Long id, UUID publicId, String firstName, String lastName, String nationalIdNumber, boolean deleted) {
-		super();
-		this.id = id;
-		this.publicId = publicId;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.nationalIdNumber = nationalIdNumber;
-		this.deleted = deleted;
-	}
-
 	public Long getId() {
 		return id;
 	}
@@ -108,7 +98,7 @@ public class Patient {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(Boolean.valueOf(deleted), firstName, id, lastName, nationalIdNumber, publicId);
+		return Objects.hash(publicId);
 	}
 
 	@Override
@@ -120,8 +110,6 @@ public class Patient {
 		if (getClass() != obj.getClass())
 			return false;
 		Patient other = (Patient) obj;
-		return deleted == other.deleted && Objects.equals(firstName, other.firstName) && Objects.equals(id, other.id)
-				&& Objects.equals(lastName, other.lastName) && Objects.equals(nationalIdNumber, other.nationalIdNumber)
-				&& Objects.equals(publicId, other.publicId);
+		return Objects.equals(publicId, other.publicId);
 	}
 }
