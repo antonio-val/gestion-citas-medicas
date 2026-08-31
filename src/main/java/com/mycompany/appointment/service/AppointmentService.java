@@ -37,15 +37,15 @@ public class AppointmentService {
 	}
 
 	public List<AppointmentDTO> getAllAppointments() {
-		return appointmentRepository.findAll().stream().map(a -> appointmentMapper.toDto(a)).toList();
+		return appointmentRepository.findAll().stream().map(appointmentMapper::toDto).toList();
 	}
 
 	public List<AppointmentDTO> getAllAppointmentsBy() {
-		return appointmentRepository.findAll().stream().map(a -> appointmentMapper.toDto(a)).toList();
+		return appointmentRepository.findAll().stream().map(appointmentMapper::toDto).toList();
 	}
 
 	public List<AppointmentDTO> getAllAppointmentsByPatientNationalIdNumber(String id) {
-		return appointmentRepository.findByPatientNationalIdNumber(id).stream().map(a -> appointmentMapper.toDto(a))
+		return appointmentRepository.findByPatientNationalIdNumber(id).stream().map(appointmentMapper::toDto)
 				.toList();
 	}
 

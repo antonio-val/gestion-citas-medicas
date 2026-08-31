@@ -28,7 +28,7 @@ public class PatientService {
 	}
 
 	public List<PatientDTO> getAllPatients() {
-		return repository.findAll().stream().map(p -> patientMapper.toDto(p)).toList();
+		return repository.findAll().stream().map(patientMapper::toDto).toList();
 	}
 
 	public PatientDTO getPatientByNationalIdNumber(String id) {
