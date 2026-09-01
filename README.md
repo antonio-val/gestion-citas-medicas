@@ -31,20 +31,20 @@ RESTful API para la gestión de citas médicas desarrollada con Spring Boot 4 y 
 
 | Método | Endpoint | Descripción | Estado HTTP |
 | --- | --- | --- | --- |
-| `POST` | `/api/v1/patients` | Registrar un nuevo paciente | `201 Created` (+ Header `Location` [ ] |
-| `POST` | `/api/v1/patients/search` | Buscar paciente por DNI (requiere `nationalIdNumber`) | `200 OK` [ ] |
-| `GET` | `/api/v1/patients` | Obtener los datos de todos los pacientes | `200 OK` [ ] |
-| `PUT` | `/api/v1/patients/{publicId}` | Actualizar de forma completa un paciente | `200 OK` [ ] |
-| `PATCH` | `/api/v1/patients/{publicId}` | Actualizar de forma parcial un paciente | `200 OK` [ ] |
-| `DELETE` | `/api/v1/patients/{publicId}` | Borrar de forma lógica (soft delete) un paciente | `204 No Content` [ ] |
+| `POST` | `/api/v1/patients` | Registrar un nuevo paciente | `201 Created` (+ Header `Location` |
+| `POST` | `/api/v1/patients/search` | Buscar paciente por DNI (requiere `nationalIdNumber`) | `200 OK` |
+| `GET` | `/api/v1/patients` | Obtener los datos de todos los pacientes | `200 OK` |
+| `PUT` | `/api/v1/patients/{publicId}` | Actualizar de forma completa un paciente | `200 OK` |
+| `PATCH` | `/api/v1/patients/{publicId}` | Actualizar de forma parcial un paciente | `200 OK` |
+| `DELETE` | `/api/v1/patients/{publicId}` | Borrar de forma lógica (soft delete) un paciente | `204 No Content` |
 
 ### Citas médicas (`/api/v1/appointments`)
 
 | Método | Endpoint | Descripción | Estado HTTP |
 | --- | --- | --- | --- |
-| `POST` | `/api/v1/appointments` | Registrar una nueva cita | `201 Created` (+ Header `Location` [ ] |
-| `POST` | `/api/v1/appointments/search` | Obtener las citas de un paciente usando su DNI (requiere `nationalIdNumber`) | `200 OK` [ ] |
-| `GET` | `/api/v1/appointments` | Obtener los datos de todas citas | `200 OK` [ ] |
-| `PATCH` | `/api/v1/appointments/{publicId}/complete` | Completar cita | `200 OK` [ ] |
-| `PATCH` | `/api/v1/appointments/{publicId}/cancel` | Cancelar cita | `200 OK` [ ] |
-| `PATCH` | `/api/v1/appointments/{publicId}` | Actualizar de forma parcial una cita | `200 OK` [ ] |
+| `POST` | `/api/v1/appointments` | Registrar una nueva cita | `201 Created` (+ Header `Location` |
+| `POST` | `/api/v1/appointments/search` | Obtener las citas de un paciente usando su DNI (requiere `nationalIdNumber`) | `200 OK` |
+| `GET` | `/api/v1/appointments` | Obtener los datos de todas citas | `200 OK` |
+| `PATCH` | `/api/v1/appointments/{publicId}/complete` | Completar cita | `200 OK` |
+| `PATCH` | `/api/v1/appointments/{publicId}/cancel` | Cancelar cita | `200 OK` |
+| `PATCH` | `/api/v1/appointments/{publicId}` | Actualizar de forma parcial una cita | `200 OK` |
