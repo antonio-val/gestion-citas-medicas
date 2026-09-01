@@ -36,14 +36,14 @@ public class PatientController {
 	@GetMapping
 	public ResponseEntity<List<PatientDTO>> getAllPatients() {
 		List<PatientDTO> patients = patientService.getAllPatients();
-		
+
 		return ResponseEntity.ok(patients);
 	}
 
 	@PostMapping("/search")
 	public ResponseEntity<PatientDTO> getPatientByNationalIdNumber(@Valid @RequestBody PatientSearchRequestDTO search) {
 		PatientDTO patient = patientService.getPatientByNationalIdNumber(search.getNationalIdNumber());
-		
+
 		return ResponseEntity.ok(patient);
 	}
 
@@ -60,14 +60,14 @@ public class PatientController {
 	@DeleteMapping("/{publicId}")
 	public ResponseEntity<Void> deletePatient(@PathVariable UUID publicId) {
 		patientService.deletePatient(publicId);
-		
+
 		return ResponseEntity.noContent().build();
 	}
 
 	@PutMapping("/{publicId}")
 	public ResponseEntity<PatientDTO> updatePatient(@PathVariable UUID publicId, @Valid @RequestBody PatientDTO patient) {
 		PatientDTO updatedPatient = patientService.updatePatient(publicId, patient);
-		
+
 		return ResponseEntity.ok(updatedPatient);
 	}
 
@@ -75,7 +75,7 @@ public class PatientController {
 	public ResponseEntity<PatientDTO> partiallyUpdatePatient(@PathVariable UUID publicId,
 			@Valid @RequestBody PatientPartiallyUpdateRequestDTO patient) {
 		PatientDTO updatedPatient = patientService.partiallyUpdatePatient(publicId, patient);
-		
+
 		return ResponseEntity.ok(updatedPatient);
 	}
 }
