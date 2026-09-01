@@ -1,8 +1,10 @@
 package com.mycompany.appointment.controller;
 
+import java.net.URI;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.mycompany.appointment.dto.AppointmentCreateRequestDTO;
 import com.mycompany.appointment.dto.AppointmentDTO;
@@ -30,36 +33,51 @@ public class AppointmentController {
 	}
 
 	@GetMapping
-	public List<AppointmentDTO> getAllAppointments() {
-		return appointmentService.getAllAppointments();
+	public ResponseEntity<List<AppointmentDTO>> getAllAppointments() {
+		List<AppointmentDTO> appointments = appointmentService.getAllAppointments();
+		
+		return ResponseEntity.ok(appointments);
 	}
 
 	@PostMapping("/search")
-	public List<AppointmentDTO> getAllAppointmentsByPatientNationalIdNumber(
+	public ResponseEntity<List<AppointmentDTO>> getAllAppointmentsByPatientNationalIdNumber(
 			@Valid @RequestBody AppointmentSearchRequestDTO search) {
-		return appointmentService.getAllAppointmentsByPatientNationalIdNumber(search.getPatientNationalIdNumber());
+		List<AppointmentDTO> appointments = appointmentService.getAllAppointmentsByPatientNationalIdNumber(search.getPatientNationalIdNumber());
+
+		return ResponseEntity.ok(appointments);
 	}
 
 	@PostMapping
-	public AppointmentDTO createAppointment(@Valid @RequestBody AppointmentCreateRequestDTO appointment) {
-		return appointmentService.createAppointment(appointment);
+	public ResponseEntity<AppointmentDTO> createAppointment(@Valid @RequestBody AppointmentCreateRequestDTO appointment) {
+		AppointmentDTO newAppointment = appointmentService.createAppointment(appointment);
+
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{publicId}")
+				.buildAndExpand(newAppointment.getPublicId()).toUri();
+
+		return ResponseEntity.created(location).body(newAppointment);
 	}
 
 	@PatchMapping("/{publicId}/complete")
-	public AppointmentDTO completeAppointment(@PathVariable UUID publicId,
+	public ResponseEntity<AppointmentDTO> completeAppointment(@PathVariable UUID publicId,
 			@Valid @RequestBody AppointmentFinishRequestDTO request) {
-		return appointmentService.completeAppointment(publicId, request);
+		AppointmentDTO appointment = appointmentService.completeAppointment(publicId, request);
+
+		return ResponseEntity.ok(appointment);
 	}
 
 	@PatchMapping("/{publicId}/cancel")
-	public AppointmentDTO cancelAppointment(@PathVariable UUID publicId,
+	public ResponseEntity<AppointmentDTO> cancelAppointment(@PathVariable UUID publicId,
 			@Valid @RequestBody AppointmentFinishRequestDTO request) {
-		return appointmentService.cancelAppointment(publicId, request);
+		AppointmentDTO appointment = appointmentService.cancelAppointment(publicId, request);
+
+		return ResponseEntity.ok(appointment);
 	}
 
 	@PatchMapping("/{publicId}")
-	public AppointmentDTO partiallyUpdateAppointment(@PathVariable UUID publicId,
+	public ResponseEntity<AppointmentDTO> partiallyUpdateAppointment(@PathVariable UUID publicId,
 			@Valid @RequestBody AppointmentPartiallyUpdateRequestDTO request) {
-		return appointmentService.partiallyUpdateAppointment(publicId, request);
+		AppointmentDTO appointment = appointmentService.partiallyUpdateAppointment(publicId, request);
+
+		return ResponseEntity.ok(appointment);
 	}
 }
