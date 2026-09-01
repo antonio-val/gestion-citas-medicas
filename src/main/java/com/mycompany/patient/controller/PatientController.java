@@ -65,7 +65,8 @@ public class PatientController {
 	}
 
 	@PutMapping("/{publicId}")
-	public ResponseEntity<PatientDTO> updatePatient(@PathVariable UUID publicId, @Valid @RequestBody PatientDTO patient) {
+	public ResponseEntity<PatientDTO> updatePatient(@PathVariable UUID publicId,
+			@Valid @RequestBody PatientPartiallyUpdateRequestDTO patient) {
 		PatientDTO updatedPatient = patientService.updatePatient(publicId, patient);
 
 		return ResponseEntity.ok(updatedPatient);

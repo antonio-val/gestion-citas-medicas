@@ -65,7 +65,7 @@ public class PatientService {
 		repository.deleteByPublicId(publicId);
 	}
 
-	public PatientDTO updatePatient(UUID publicId, PatientDTO updatedPatient) {
+	public PatientDTO updatePatient(UUID publicId, PatientPartiallyUpdateRequestDTO updatedPatient) {
 		Patient patient = getPatientEntity(publicId);
 
 		patient.setFirstName(updatedPatient.getFirstName());
